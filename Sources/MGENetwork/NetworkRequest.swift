@@ -22,16 +22,19 @@ public struct NetworkRequest {
   /// HTTP method of this request.
   public let method: HTTPMethod
   
-  public init(method: HTTPMethod, endpoint: Endpoint) {
+  public let header: HTTPHeader
+  
+  public init(method: HTTPMethod, endpoint: Endpoint, header: HTTPHeader) {
     self.method = method
     self.endpoint = endpoint
+    self.header = header
   }
   
   /// Creates a simple get request for the given urlString.
   /// - Parameter urlString: The url string for this request.
   public init(urlString: String) {
     let endpoint = ConcreteEndpoint(urlString: urlString)
-    self.init(method: .get, endpoint: endpoint)
+    self.init(method: .get, endpoint: endpoint, header: [:])
   }
   
   /// Generates an `URLRequest` using this network request's properties.
@@ -41,6 +44,7 @@ public struct NetworkRequest {
     let url = try endpoint.makeURL()
     var requestUrl = URLRequest(url: url)
     requestUrl.httpMethod = method.rawValue
+    requestUrl.allHTTPHeaderFields = header
     return requestUrl
   }
 }

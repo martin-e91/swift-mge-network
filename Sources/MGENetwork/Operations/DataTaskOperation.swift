@@ -33,7 +33,7 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       return
     }
     
-    Logger.log(title: "Sending \(request.method) Request", message: nil)
+    Logger.log(title: "Sending \(request.method.rawValue) Request", message: request.endpoint)
     
     let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
@@ -43,6 +43,8 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       if let error = error {
         self.finish(with: .generic(error))
       }
+
+      Logger.log(title: "RECEIVED RESPONSE", message: data?.prettyPrintedJSON)
       
       guard
         let body = data,
@@ -52,8 +54,6 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
         self.finish(with: .invalidData)
         return
       }
-      
-      Logger.log(title: "REQUEST RESPONSE", message: body.prettyPrintedJSON)
       
       let networkResponse = NetworkResponse(body: decodedData, request: self.request, httpResponse: response)
       self.finish(with: networkResponse.body)

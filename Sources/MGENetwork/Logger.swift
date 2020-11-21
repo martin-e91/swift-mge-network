@@ -22,11 +22,11 @@ internal enum Logger {
       ===============
       File: \(file)
       Line: \(line)
-      \(title)
+      🌍🌍🌍🌍 \(title)
 
       \(message ?? "nil")
       ===============
-      
+
       """
     )
   }
