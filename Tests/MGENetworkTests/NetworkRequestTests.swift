@@ -1,8 +1,5 @@
 //
-//  File.swift
-//  
-//
-//  Created by Martin Essuman on 28/04/2020.
+//  MGENetwork
 //
 
 import XCTest
