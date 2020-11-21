@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Error occurring upon network tasks.
 public enum NetworkError: Error {
     case invalidURL
     case invalidData

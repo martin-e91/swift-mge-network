@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MGENetwork
 
 class ViewController: UIViewController {
 
