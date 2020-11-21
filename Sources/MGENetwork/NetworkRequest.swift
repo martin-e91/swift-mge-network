@@ -1,9 +1,5 @@
 //
-//  Request.swift
-//  NBAPlayers
-//
-//  Created by Martin Essuman on 25/04/2020.
-//  Copyright © 2020 Martino Godswill Essuman. All rights reserved.
+//  MGENetwork
 //
 
 import Foundation
@@ -19,7 +15,7 @@ public struct NetworkRequest {
     case delete = "DELETE"
     case patch = "PATCH"
   }
-
+  
   /// The endpoint of this request.
   public let endpoint: Endpoint
   

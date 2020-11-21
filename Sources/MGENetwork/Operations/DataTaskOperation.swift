@@ -53,7 +53,7 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
         return
       }
       
-      Logger.log(title: "REQUEST RESPONSE", message: body.description)
+      Logger.log(title: "REQUEST RESPONSE", message: body.prettyPrintedJSON)
       
       let networkResponse = NetworkResponse(body: decodedData, request: self.request, httpResponse: response)
       self.finish(with: networkResponse.body)

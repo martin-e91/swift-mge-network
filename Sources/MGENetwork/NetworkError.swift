@@ -1,16 +1,17 @@
 //
-//  NetworkError.swift
-//  NBAPlayers
-//
-//  Created by Martin Essuman on 25/04/2020.
-//  Copyright © 2020 Martino Godswill Essuman. All rights reserved.
+//  MGENetwork
 //
 
 import Foundation
 
 /// Error occurring upon network tasks.
 public enum NetworkError: Error {
-    case invalidURL
-    case invalidData
-    case generic(Error)
+  /// Error occurring when trying to create an invalid `URL` instance.
+  case invalidURL
+  
+  /// Error occuring when data is invalid.
+  case invalidData
+  
+  /// A generic error.
+  case generic(Error)
 }

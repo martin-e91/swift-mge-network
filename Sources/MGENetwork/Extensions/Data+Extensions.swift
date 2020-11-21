@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MGENetwork
 //
 
 import Foundation
