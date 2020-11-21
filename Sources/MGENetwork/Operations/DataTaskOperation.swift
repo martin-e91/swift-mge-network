@@ -8,7 +8,8 @@
 
 import Foundation
 
-/// An operation for network calls, using data tasks generated from the given session. Executes a completion upon its task termination.
+/// An operation for network calls, using data tasks generated from the given session.
+/// Performs a `NetworkRequest` a completion upon its task termination.
 public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, NetworkError> {
   
   /// The session used by this operation.
@@ -32,19 +33,27 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       return
     }
     
+    Logger.log(title: "Sending \(request.method) Request", message: nil)
+    
     let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
-      guard let self = self else { return }
+      guard let self = self else {
+        return
+      }
       
       if let error = error {
         self.finish(with: .generic(error))
       }
       
-      guard let body = data,
-            let decodedData = try? self.decode(body),
-            let response = response as? HTTPURLResponse else {
+      guard
+        let body = data,
+        let decodedData = try? self.decode(body),
+        let response = response as? HTTPURLResponse
+      else {
         self.finish(with: .invalidData)
         return
       }
+      
+      Logger.log(title: "REQUEST RESPONSE", message: body.description)
       
       let networkResponse = NetworkResponse(body: decodedData, request: self.request, httpResponse: response)
       self.finish(with: networkResponse.body)
@@ -59,13 +68,25 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       let decodedData = try decoder.decode(T.self, from: data)
       return decodedData
     } catch DecodingError.keyNotFound(let key, let context) {
-      print("Couldn't decode '\(T.self)': missing key '\(key.stringValue)' – \(context.debugDescription)")
+      Logger.log(
+        title: "Decoding Error",
+        message: "Couldn't decode '\(T.self)': missing key '\(key.stringValue)' – \(context.debugDescription)"
+      )
     } catch DecodingError.valueNotFound(let type, let context) {
-      print("Couldn't decode '\(T.self)': missing \(type) value – \(context.debugDescription)")
+      Logger.log(
+        title: "Decoding Error",
+        message: "Couldn't decode '\(T.self)': missing \(type) value – \(context.debugDescription)"
+      )
     } catch DecodingError.dataCorrupted(let context) {
-      print("Corrupted data \(context.debugDescription)")
+      Logger.log(
+        title: "Decoding Error",
+        message: "Corrupted data \(context.debugDescription)"
+      )
     } catch let error {
-      print("Couldn't decode '\(T.self)': \(error.localizedDescription)")
+      Logger.log(
+        title: "Decoding Error",
+        message: "Couldn't decode '\(T.self)': \(error.localizedDescription)"
+      )
     }
     return nil
   }
