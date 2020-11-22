@@ -15,7 +15,7 @@ public final class Logger {
   var isEnabled: Bool = true
   
   /// The token appended at the end of a truncated string.
-  static let truncatingToken = "<...>"
+  static let truncatingToken = "<..>"
   
   // MARK: - Stored Properties
   
