@@ -35,8 +35,6 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
     
     Log.debug(title: "➡️ SENDING \(request.method.rawValue) Request", message: "to \(request.endpoint)")
     
-//    Log.info(title: "➡️ SENDING \(request.method.rawValue) Request", message: request.endpoint)
-    
     let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
         return
