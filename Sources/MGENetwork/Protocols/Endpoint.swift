@@ -11,6 +11,7 @@ import Foundation
 /// An endpoint provider.
 public protocol Endpoint {
   /// Tries to generate an `URL` instance for this endpoint.
-  /// Can throw error related to building the `URL` instance.
+  /// Can throw an error while building the `URL` instance.
+  /// - Note: any query or path parameter must be configured inside implementation of this method.
   func asURL() throws -> URL
 }

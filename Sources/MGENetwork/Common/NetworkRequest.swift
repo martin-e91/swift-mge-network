@@ -10,12 +10,34 @@ public struct NetworkRequest: Requestable {
   
   public let method: HTTPMethod
   
-  public let header: HTTPHeader
+  public let defaultHeaders: HTTPHeaders
   
-  public init(method: HTTPMethod, endpoint: Endpoint, header: HTTPHeader = [:]) {
+  public let additionalHeaders: HTTPHeaders
+  
+  public let parameters: Encodable?
+  
+  /// The HTTP body for the request.
+  private var body: Data? {
+    do {
+      return try JSONSerialization.data(withJSONObject: parameters)
+    } catch {
+      Log.error(title: "Invalid parameters", message: error.localizedDescription)
+    }
+    return nil
+  }
+  
+  public init(
+    method: HTTPMethod,
+    endpoint: Endpoint,
+    defaultHeaders: HTTPHeaders = ["Accept": "application/json", "Content-Type": "application/json"],
+    header: HTTPHeaders = [:],
+    parameters: Encodable? = nil
+  ) {
     self.method = method
     self.endpoint = endpoint
-    self.header = header
+    self.defaultHeaders = defaultHeaders
+    self.additionalHeaders = header
+    self.parameters = parameters
   }
   
   /// Creates a simple get request for the given urlString.
@@ -29,7 +51,8 @@ public struct NetworkRequest: Requestable {
     let url = try endpoint.asURL()
     var requestUrl = URLRequest(url: url)
     requestUrl.httpMethod = method.rawValue
-    requestUrl.allHTTPHeaderFields = header
+    requestUrl.allHTTPHeaderFields = additionalHeaders
+    requestUrl.httpBody = body
     return requestUrl
   }
 }
