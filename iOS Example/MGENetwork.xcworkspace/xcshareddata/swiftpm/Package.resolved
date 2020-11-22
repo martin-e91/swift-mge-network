@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MGELogger",
+        "repositoryURL": "git@github.com:martin-e91/MGELogger.git",
+        "state": {
+          "branch": null,
+          "revision": "510799267a1119402576e9d7450cf0bdd309e435",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -8,6 +8,7 @@
 
 import UIKit
 import MGENetwork
+import MGELogger
 
 class ViewController: UIViewController {
   private let networkClient: NetworkProvider = NetworkClient()

@@ -8,6 +8,8 @@
 
 import Foundation
 
+#warning("Logger configuration can be exposed as a protocol")
+
 /// An entity providing ways of making requests against the network.
 public protocol NetworkProvider {
   /// Whether the logging is enabled or not. Default value is `true`.
@@ -31,10 +33,10 @@ public protocol NetworkProvider {
 public extension NetworkProvider {
   var isLoggingEnabled: Bool {
     get {
-      Logger.isActive
+      Log.isEnabled
     }
     set {
-      Logger.isActive = newValue
+      Log.isEnabled = newValue
     }
   }
 }
