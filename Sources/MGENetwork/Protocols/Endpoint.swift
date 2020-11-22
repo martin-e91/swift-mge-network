@@ -8,8 +8,9 @@
 
 import Foundation
 
-public typealias HTTPHeader = [String: String]
-
+/// An endpoint provider.
 public protocol Endpoint {
-    func makeURL() throws -> URL
+  /// Tries to generate an `URL` instance for this endpoint.
+  /// Can throw error related to building the `URL` instance.
+  func makeURL() throws -> URL
 }
