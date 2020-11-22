@@ -4,6 +4,8 @@
 
 import Foundation
 
+#warning("Add POST requests support")
+
 /// An entity that can be used to describe an HTTP request.
 public protocol Requestable {
   /// The endpoint of this request.
