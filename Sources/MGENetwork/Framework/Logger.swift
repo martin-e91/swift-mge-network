@@ -38,7 +38,7 @@ public final class Logger {
   // MARK: - Init
   
   #warning("Change default log level to .info")
-  internal init(logLevel: LogLevel = .debug, maxMessagesLength: Int = 20_000) {
+  internal init(logLevel: LogLevel = .info, maxMessagesLength: Int = 20_000) {
     self.logLevel = logLevel
     self.maxMessagesLength = maxMessagesLength
   }
