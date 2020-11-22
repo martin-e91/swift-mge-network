@@ -4,6 +4,8 @@
 
 import Foundation
 
+#warning("Add more error cases")
+
 /// Error occurring upon network tasks.
 public enum NetworkError: Error {
   /// Error occurring when trying to create an invalid `URL` instance.

@@ -1,6 +1,5 @@
 # MGENetwork
 
-[![CI Status](http://img.shields.io/travis/martin-e91/MGENetwork.svg?style=flat)](https://travis-ci.org/martin-e91/MGENetwork)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/martin-e91/MGENetwork)
 [![License](https://img.shields.io/github/license/martin-e91/MGENetwork)](LICENSE)
 
