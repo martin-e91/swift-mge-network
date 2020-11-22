@@ -5,7 +5,7 @@
 import Foundation
 
 /// A client for making network calls.
-public final class NetworkClient: NetworkProvider {
+public final class NetworkClient: NetworkProvider {  
   /// The queue for network related operations.
   private lazy var queue = OperationQueue()
   

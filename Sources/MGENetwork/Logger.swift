@@ -17,6 +17,10 @@ internal enum Logger {
     file: StaticString = #file,
     line: UInt = #line
   ) {
+    guard isActive else {
+      return
+    }
+    
     print(
       """
       ===============

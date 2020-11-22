@@ -22,7 +22,7 @@ public protocol NetworkProvider {
   
   /// Downloads raw data from the given url.
   /// - Parameters:
-  ///   - url: The endpoint for the network task.
+  ///   - urlString: The endpoint for the network task.
   ///   - completion: Completion block for handling result.
   @discardableResult
   func download(from urlString: String, completion: @escaping Completion<Data, NetworkError>) -> Operation
