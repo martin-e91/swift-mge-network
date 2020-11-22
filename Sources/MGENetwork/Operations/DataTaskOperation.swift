@@ -33,7 +33,9 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       return
     }
     
-    Logger.log(title: "➡️ SENDING \(request.method.rawValue) Request", message: request.endpoint)
+    Log.debug(title: "➡️ SENDING \(request.method.rawValue) Request", message: "to \(request.endpoint)")
+    
+//    Log.info(title: "➡️ SENDING \(request.method.rawValue) Request", message: request.endpoint)
     
     let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
@@ -44,7 +46,7 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
         self.finish(with: .generic(error))
       }
 
-      Logger.log(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON)
+      Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON ?? "")
       
       guard
         let body = data,
@@ -68,25 +70,19 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       let decodedData = try decoder.decode(T.self, from: data)
       return decodedData
     } catch DecodingError.keyNotFound(let key, let context) {
-      Logger.log(
-        title: "Decoding Error",
-        message: "Couldn't decode '\(T.self)': missing key '\(key.stringValue)' – \(context.debugDescription)"
+      Log.debug(
+        title: "Couldn't decode '\(T.self)",
+        message: "Missing key '\(key.stringValue)' – \(context.debugDescription)"
       )
     } catch DecodingError.valueNotFound(let type, let context) {
-      Logger.log(
-        title: "Decoding Error",
-        message: "Couldn't decode '\(T.self)': missing \(type) value – \(context.debugDescription)"
+      Log.debug(
+        title: "Couldn't decode '\(T.self)'",
+        message: "missing \(type) value – \(context.debugDescription)"
       )
     } catch DecodingError.dataCorrupted(let context) {
-      Logger.log(
-        title: "Decoding Error",
-        message: "Corrupted data \(context.debugDescription)"
-      )
+      Log.debug(title: "Corrupted data", message: "\(context.debugDescription)")
     } catch let error {
-      Logger.log(
-        title: "Decoding Error",
-        message: "Couldn't decode '\(T.self)': \(error.localizedDescription)"
-      )
+      Log.debug(title: "Couldn't decode '\(T.self)'", message: "\(error.localizedDescription)")
     }
     return nil
   }

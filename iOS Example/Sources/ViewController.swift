@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     fetchData()
   }
   
-  private func setup() {
+  private func setup() {    
     navigationItem.title = "Chuck Norris Facts"
     
     view.addSubview(activityIndicator)
