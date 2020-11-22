@@ -16,7 +16,7 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
   private let session: URLSession
   
   /// The request that will be performed by this operation.
-  private let request: NetworkRequest
+  private let request: Requestable
   
   /// Creates a new DataTaskOperation that will use the given session for performing the given request.
   /// - Parameters:

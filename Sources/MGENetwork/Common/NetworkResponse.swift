@@ -10,7 +10,7 @@ public struct NetworkResponse<T> where T: Decodable {
   public let body: T
   
   /// The request associated with this response.
-  public let request: NetworkRequest
+  public let request: Requestable
   
   /// The metadata associated with the response to an HTTP protocol URL load request.
   public let httpResponse: HTTPURLResponse

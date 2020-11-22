@@ -5,21 +5,9 @@
 import Foundation
 
 /// Models a network request.
-public struct NetworkRequest {
-  /// The set of HTTP methods for an HTTP request.
-  public enum HTTPMethod: String {
-    case put = "PUT"
-    case get = "GET"
-    case post = "POST"
-    case head = "HEAD"
-    case delete = "DELETE"
-    case patch = "PATCH"
-  }
-  
-  /// The endpoint of this request.
+public struct NetworkRequest: Requestable {  
   public let endpoint: Endpoint
   
-  /// HTTP method of this request.
   public let method: HTTPMethod
   
   public let header: HTTPHeader
@@ -37,9 +25,6 @@ public struct NetworkRequest {
     self.init(method: .get, endpoint: endpoint, header: [:])
   }
   
-  /// Converts this request to an `URLRequest`.
-  /// - Throws: An error while building the `URL` object.
-  /// - Returns: The `URLRequest` associated with this network request.
   public func asURLRequest() throws -> URLRequest {
     let url = try endpoint.makeURL()
     var requestUrl = URLRequest(url: url)
