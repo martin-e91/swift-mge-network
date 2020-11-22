@@ -29,6 +29,7 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
   
   public override func execute() {
     guard let urlRequest = try? request.asURLRequest() else {
+      Log.error(title: "Invalid URL", message: NetworkError.invalidURL.message)
       finish(with: .invalidURL)
       return
     }
@@ -41,9 +42,10 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       }
       
       if let error = error {
+        Log.error(title: "An error occurred", message: "\(error.localizedDescription)")
         self.finish(with: .generic(error))
       }
-
+     
       Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON ?? "")
       
       guard
@@ -51,14 +53,45 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
         let decodedData = try? self.decode(body),
         let response = response as? HTTPURLResponse
       else {
+        Log.error(title: "Invalid data", message: NetworkError.invalidData.message)
         self.finish(with: .invalidData)
         return
       }
       
+      if let clientError = self.clientError(from: response.httpStatus) {
+        Log.error(title: "Client Error", message: clientError.message)
+        self.finish(with: clientError)
+      }
+            
       let networkResponse = NetworkResponse(body: decodedData, request: self.request, httpResponse: response)
       self.finish(with: networkResponse.body)
     }
     task.resume()
+  }
+  
+  /// Calls `finish` with an error associated with the `HTTPStatusCode`.
+  /// - Parameter statusCode: the statusCode received by the server.
+  private func clientError(from statusCode: HTTPStatusCode?) -> NetworkError? {
+    guard statusCode?.responseType == .some(.clientError) else {
+      return nil
+    }
+    
+    switch statusCode {
+    case .badRequest:
+      return .badRequest
+      
+    case .forbidden:
+      return .forbidden
+      
+    case .notFound:
+      return .notFound
+      
+    case .unauthorized:
+      return .unauthorized
+      
+    default:
+      return .unknown
+    }
   }
   
   private func decode(_ data: Data) throws -> T? {

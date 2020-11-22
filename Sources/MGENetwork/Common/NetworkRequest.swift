@@ -26,7 +26,7 @@ public struct NetworkRequest: Requestable {
   }
   
   public func asURLRequest() throws -> URLRequest {
-    let url = try endpoint.makeURL()
+    let url = try endpoint.asURL()
     var requestUrl = URLRequest(url: url)
     requestUrl.httpMethod = method.rawValue
     requestUrl.allHTTPHeaderFields = header

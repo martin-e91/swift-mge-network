@@ -12,5 +12,5 @@ import Foundation
 public protocol Endpoint {
   /// Tries to generate an `URL` instance for this endpoint.
   /// Can throw error related to building the `URL` instance.
-  func makeURL() throws -> URL
+  func asURL() throws -> URL
 }

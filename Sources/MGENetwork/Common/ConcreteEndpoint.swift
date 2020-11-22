@@ -10,21 +10,24 @@ import Foundation
 
 /// A simple endpoint representation.
 public struct ConcreteEndpoint: Endpoint {
-    public let urlString: String
-    public let queryParameters: [URLQueryItem]
+  /// The url string for this endpoint.
+  public let urlString: String
+  
+  /// Query parameters that will be used to make the request.
+  public let queryParameters: [URLQueryItem]
+  
+  public init(urlString: String, queryParameters: [URLQueryItem] = []) {
+    self.urlString = urlString
+    self.queryParameters = queryParameters
+  }
+  
+  public func asURL() throws -> URL {
+    var components = URLComponents(string: urlString)
+    components?.queryItems = queryParameters
     
-    public init(urlString: String, queryParameters: [URLQueryItem] = []) {
-        self.urlString = urlString
-        self.queryParameters = queryParameters
+    guard let url = components?.url else {
+      throw NetworkError.invalidURL
     }
-    
-    public func makeURL() throws -> URL {
-        var components = URLComponents(string: urlString)
-        components?.queryItems = queryParameters
-        
-        guard let url = components?.url else {
-            throw NetworkError.invalidURL
-        }
-        return url
-    }
+    return url
+  }
 }
