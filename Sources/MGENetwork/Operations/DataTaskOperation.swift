@@ -28,7 +28,7 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
   }
   
   public override func execute() {
-    guard let urlRequest = try? request.makeURLRequest() else {
+    guard let urlRequest = try? request.asURLRequest() else {
       finish(with: .invalidURL)
       return
     }

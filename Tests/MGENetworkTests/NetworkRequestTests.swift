@@ -19,7 +19,7 @@ final class RequestTests: XCTestCase {
     let method: NetworkRequest.HTTPMethod = .get
     let sut = NetworkRequest(method: method, endpoint: api)
     
-    guard let urlRequest = try? sut.makeURLRequest() else {
+    guard let urlRequest = try? sut.asURLRequest() else {
       XCTFail()
       return
     }

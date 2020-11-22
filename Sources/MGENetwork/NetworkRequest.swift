@@ -37,10 +37,10 @@ public struct NetworkRequest {
     self.init(method: .get, endpoint: endpoint, header: [:])
   }
   
-  /// Generates an `URLRequest` using this network request's properties.
+  /// Converts this request to an `URLRequest`.
   /// - Throws: An error while building the `URL` object.
   /// - Returns: The `URLRequest` associated with this network request.
-  public func makeURLRequest() throws -> URLRequest {
+  public func asURLRequest() throws -> URLRequest {
     let url = try endpoint.makeURL()
     var requestUrl = URLRequest(url: url)
     requestUrl.httpMethod = method.rawValue
