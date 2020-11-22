@@ -12,7 +12,7 @@ public struct NetworkRequest: Requestable {
   
   public let header: HTTPHeader
   
-  public init(method: HTTPMethod, endpoint: Endpoint, header: HTTPHeader) {
+  public init(method: HTTPMethod, endpoint: Endpoint, header: HTTPHeader = [:]) {
     self.method = method
     self.endpoint = endpoint
     self.header = header
