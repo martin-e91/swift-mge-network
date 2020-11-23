@@ -12,14 +12,13 @@ public protocol Requestable {
   /// HTTP method of this request.
   var method: HTTPMethod { get }
   
-  /// Default headers for the request.
-  var defaultHeaders: HTTPHeaders { get }
-  
   /// HTTP header of this request.
-  var additionalHeaders: HTTPHeaders { get }
+  var headers: HTTPHeaders { get }
   
-  /// Body parameters for the request, if any.
-  var parameters: Encodable? { get }
+  /// Parameters for the request, if any.
+  /// - Note: for a `GET` request they are going to be encoded as url parameters.
+  /// For a `POST`, `PUT` or `PATCH` request they're going to be send as body parameters.
+  var parameters: Parameters { get }
   
   /// Converts this request to an `URLRequest`.
   /// - Throws: An error while building the `URL` object.
@@ -27,11 +26,18 @@ public protocol Requestable {
   func asURLRequest() throws -> URLRequest
 }
 
+// Default implementation
+
 public extension Requestable {
+  /// Default headers to include in a request.
   var defaultHeaders: HTTPHeaders? {
     [
       "Accept": "application/json",
       "Content-Type": "application/json"
     ]
+  }
+  
+  var parameters: Parameters {
+    [:]
   }
 }

@@ -10,19 +10,13 @@ public struct NetworkRequest: Requestable {
   
   public let method: HTTPMethod
   
-  public let defaultHeaders: HTTPHeaders
+  public let headers: HTTPHeaders
   
-  public let additionalHeaders: HTTPHeaders
-  
-  public let parameters: Encodable?
-  
+  public let parameters: Parameters
+
   /// The HTTP body for the request.
   private var body: Data? {
-    do {
-      return try JSONSerialization.data(withJSONObject: parameters)
-    } catch {
-      Log.error(title: "Invalid parameters", message: error.localizedDescription)
-    }
+    #warning("implement")
     return nil
   }
   
@@ -30,13 +24,12 @@ public struct NetworkRequest: Requestable {
     method: HTTPMethod,
     endpoint: Endpoint,
     defaultHeaders: HTTPHeaders = ["Accept": "application/json", "Content-Type": "application/json"],
-    header: HTTPHeaders = [:],
-    parameters: Encodable? = nil
+    additionalHeaders: HTTPHeaders = [:],
+    parameters: Parameters = [:]
   ) {
     self.method = method
     self.endpoint = endpoint
-    self.defaultHeaders = defaultHeaders
-    self.additionalHeaders = header
+    self.headers = defaultHeaders.merging(additionalHeaders) { $1 }
     self.parameters = parameters
   }
   
@@ -44,15 +37,31 @@ public struct NetworkRequest: Requestable {
   /// - Parameter urlString: The url string for this request.
   public init(urlString: String) {
     let endpoint = ConcreteEndpoint(urlString: urlString)
-    self.init(method: .get, endpoint: endpoint, header: [:])
+    self.init(method: .get, endpoint: endpoint)
   }
   
   public func asURLRequest() throws -> URLRequest {
     let url = try endpoint.asURL()
-    var requestUrl = URLRequest(url: url)
-    requestUrl.httpMethod = method.rawValue
-    requestUrl.allHTTPHeaderFields = additionalHeaders
-    requestUrl.httpBody = body
-    return requestUrl
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = method.rawValue
+    urlRequest.allHTTPHeaderFields = headers
+    
+    try addParameters(to: &urlRequest)
+    
+    return urlRequest
+  }
+  
+  private func addParameters(to request: inout URLRequest) throws {
+    switch method {
+    case .get:
+      #warning("Add URLEncoder")
+      break
+      
+    case .post, .put, .patch:
+      try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
+      
+    default:
+      break
+    }
   }
 }

@@ -9,6 +9,9 @@ public enum NetworkError: Error {
   /// Occurs when 400 status code is received from the server.
   case badRequest
   
+  /// An error occuring while performing encoding operations.
+  case encodingFailure
+  
   /// Error occuring when data is invalid.
   case invalidData
 
@@ -35,6 +38,9 @@ public enum NetworkError: Error {
     switch self {
     case .badRequest:
       return "Request was invalid"
+      
+    case .encodingFailure:
+      return "Encoding failed"
       
     case .forbidden:
       return "Received Forbidden statu code error from server"
