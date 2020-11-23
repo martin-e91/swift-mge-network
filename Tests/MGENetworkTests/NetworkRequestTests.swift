@@ -13,7 +13,7 @@ final class RequestTests: XCTestCase {
   }
   
   /// Struct for testing with the Postman api
-  private struct POSTBody: Codable {
+  private struct POSTBody: Codable, Equatable {
     let message: String
   }
   
@@ -72,5 +72,31 @@ final class RequestTests: XCTestCase {
     }
     
     wait(for: [expectation], timeout: 10)
+  }
+  
+  func test_bodyParametersEncoding() {
+    let expectedObject = POSTBody(message: "hello")
+    
+    guard let parameters = try? expectedObject.asDictionary() else {
+      XCTFail()
+      return
+    }
+    
+    let request = NetworkRequest(
+      method: .post,
+      endpoint: ConcreteEndpoint(urlString: "www.google.com"),
+      parameters: parameters
+    )
+  
+    guard
+      let urlRequest = try? request.asURLRequest(),
+      let body = urlRequest.httpBody,
+      let sut = try? JSONDecoder().decode(POSTBody.self, from: body)
+    else {
+      XCTFail()
+      return
+    }
+     
+    XCTAssertEqual(sut, expectedObject)
   }
 }
