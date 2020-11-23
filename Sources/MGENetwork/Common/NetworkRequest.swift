@@ -41,7 +41,10 @@ public struct NetworkRequest: Requestable {
   }
   
   public func asURLRequest() throws -> URLRequest {
-    let url = try endpoint.asURL()
+    guard let url = try? endpoint.asURL() else {
+      throw NetworkError.invalidURL
+    }
+    
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = method.rawValue
     urlRequest.allHTTPHeaderFields = headers
@@ -52,16 +55,20 @@ public struct NetworkRequest: Requestable {
   }
   
   private func addParameters(to request: inout URLRequest) throws {
-    switch method {
-    case .get:
-      #warning("Add URLEncoder")
-      break
-      
-    case .post, .put, .patch:
-      try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
-      
-    default:
-      break
+    do {
+      switch method {
+      case .get:
+        #warning("Add URLEncoder")
+        break
+        
+      case .post, .put, .patch:
+        try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
+        
+      default:
+        break
+      }
+    } catch {
+      throw NetworkError.encodingFailure
     }
   }
 }
