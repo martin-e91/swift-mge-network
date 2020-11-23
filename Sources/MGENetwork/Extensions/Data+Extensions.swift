@@ -6,7 +6,7 @@ import Foundation
 
 public extension Data {
   /// Returns the `JSON` string representation of this Data instance.
-  var prettyPrintedJSON: String? {
+  var prettyPrintedJSON: NSString? {
     guard
       let jsonObject = try? JSONSerialization.jsonObject(with: self),
       let data = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted]),
@@ -15,6 +15,6 @@ public extension Data {
       return nil
     }
     
-    return String(string)
+    return string
   }
 }
