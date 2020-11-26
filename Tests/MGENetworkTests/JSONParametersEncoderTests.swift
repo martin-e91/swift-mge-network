@@ -9,7 +9,7 @@ final class JSONParametersEncoderTests: XCTestCase {
   struct CodableStruct: Codable, Equatable {
     let field: String
   }
-  
+
   func test_bodyParametersEncoding() {
     let expectedObject = CodableStruct(field: "hello world!")
     

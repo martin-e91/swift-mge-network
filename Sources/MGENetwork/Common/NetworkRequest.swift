@@ -14,12 +14,6 @@ public struct NetworkRequest: Requestable {
   
   public let parameters: Parameters
 
-  /// The HTTP body for the request.
-  private var body: Data? {
-    #warning("implement")
-    return nil
-  }
-  
   public init(
     method: HTTPMethod,
     endpoint: Endpoint,
