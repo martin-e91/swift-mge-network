@@ -8,7 +8,7 @@ import Foundation
 public typealias Completion<T, E: Error> = (Result<T, E>) -> Void
 
 /// Parameters for a `NetworkRequest`.
-public typealias Parameters = [String: Any?]
+public typealias Parameters = [String: Any]
 
 /// A type for representing HTTP header fields.
 public typealias HTTPHeaders = [String: String]

@@ -21,20 +21,8 @@ public enum URLParametersEncoder: ParameterEncoder {
       throw NetworkError.invalidURL
     }
 
-    components.queryItems = [URLQueryItem]()
-    
-    for (key, value) in parameters {
-      guard let unwrappedValue = value else {
-        Log.warning(title: "Invalid query parameter", message: "Discarded value '\(value)' for parameter '\(key)'")
-        continue
-      }
-      
-      let queryItem = URLQueryItem(name: key, value: "\(unwrappedValue)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
-      components.queryItems?.append(queryItem)
-    }
-    
-    guard !(components.queryItems?.isEmpty ?? false) else {
-      return
+    components.queryItems = parameters.map { (key, value) in
+      URLQueryItem(name: key, value: "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
     }
 
     urlRequest.url = components.url

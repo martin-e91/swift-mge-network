@@ -78,16 +78,4 @@ final class URLParametersEncoderTests: XCTestCase {
     
     XCTAssertEqual(urlRequest.url?.absoluteString, endpoint)
   }
-  
-  func test_nilValueForAParameter() {
-    let endpoint = "https://postman-echo.com/get"
-    let request = NetworkRequest(method: .get, endpoint: endpoint, parameters: ["some": nil])
-    
-    guard let urlRequest = try? request.asURLRequest() else {
-      XCTFail()
-      return
-    }
-    
-    XCTAssertEqual(urlRequest.url?.absoluteString, "https://postman-echo.com/get")
-  }
 }
