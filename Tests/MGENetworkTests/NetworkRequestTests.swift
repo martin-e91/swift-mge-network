@@ -29,7 +29,7 @@ final class RequestTests: XCTestCase {
     return client
   }()
   
-  func test_RequestCreation() {
+  func test_GETRequestCreation() {
     let api = Api()
     let method: HTTPMethod = .get
     let sut = NetworkRequest(method: method, endpoint: api)

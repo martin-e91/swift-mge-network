@@ -52,8 +52,7 @@ public struct NetworkRequest: Requestable {
     do {
       switch method {
       case .get:
-        #warning("Add URLEncoder")
-        break
+        try URLParametersEncoder.encode(urlRequest: &request, with: parameters)
         
       case .post, .put, .patch:
         try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
