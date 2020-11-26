@@ -9,6 +9,10 @@ public enum URLParametersEncoder: ParameterEncoder {
     defer {
       urlRequest.addingDefaultHeadersIfMissing()
     }
+
+    guard !parameters.isEmpty else {
+      return
+    }
     
     guard
       let url = urlRequest.url,
@@ -16,11 +20,7 @@ public enum URLParametersEncoder: ParameterEncoder {
     else {
       throw NetworkError.invalidURL
     }
-    
-    guard !parameters.isEmpty else {
-      return
-    }
-    
+
     components.queryItems = [URLQueryItem]()
     
     for (key, value) in parameters {

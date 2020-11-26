@@ -38,8 +38,11 @@ final class URLParametersEncoderTests: XCTestCase {
   }
   
   func test_GETRequestWithQueryItems() {
-    let endpoint = ConcreteEndpoint(urlString: "https://postman-echo.com/get")
-    let request = NetworkRequest(method: .get, endpoint: endpoint, parameters: ["foo1": "bar1", "foo2": "bar2"])
+    let request = NetworkRequest(
+      method: .get,
+      endpoint: "https://postman-echo.com/get",
+      parameters: ["foo1": "bar1", "foo2": "bar2"]
+    )
     
     let expectation = self.expectation(description: "Response received")
     
@@ -62,5 +65,17 @@ final class URLParametersEncoderTests: XCTestCase {
     }
     
     wait(for: [expectation], timeout: 8)
+  }
+  
+  func test_emptyQueryParameters() {
+    let endpoint = "https://postman-echo.com/get"
+    let request = NetworkRequest(method: .get, endpoint: endpoint)
+    
+    guard let urlRequest = try? request.asURLRequest() else {
+      XCTFail()
+      return
+    }
+    
+    XCTAssertEqual(urlRequest.url?.absoluteString, endpoint)
   }
 }

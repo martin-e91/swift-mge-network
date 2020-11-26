@@ -30,8 +30,7 @@ public struct NetworkRequest: Requestable {
   /// Creates a simple get request for the given urlString.
   /// - Parameter urlString: The url string for this request.
   public init(urlString: String) {
-    let endpoint = ConcreteEndpoint(urlString: urlString)
-    self.init(method: .get, endpoint: endpoint)
+    self.init(method: .get, endpoint: urlString)
   }
   
   public func asURLRequest() throws -> URLRequest {

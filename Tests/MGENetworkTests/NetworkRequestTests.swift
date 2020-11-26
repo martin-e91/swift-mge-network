@@ -55,8 +55,7 @@ final class RequestTests: XCTestCase {
   }
   
   func test_POSTRequest() {
-    let endpoint = ConcreteEndpoint(urlString: "https://postman-echo.com/post")
-    let request = NetworkRequest(method: .post, endpoint: endpoint, parameters: ["message": "Ciao Postman 👋🏾"])
+    let request = NetworkRequest(method: .post, endpoint: "https://postman-echo.com/post", parameters: ["message": "Ciao Postman 👋🏾"])
     
     let expectation = XCTestExpectation(description: "Successful POST Request")
     
@@ -84,7 +83,7 @@ final class RequestTests: XCTestCase {
     
     let request = NetworkRequest(
       method: .post,
-      endpoint: ConcreteEndpoint(urlString: "www.google.com"),
+      endpoint: "www.google.com",
       parameters: parameters
     )
   
