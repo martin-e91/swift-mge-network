@@ -32,6 +32,10 @@ public enum URLParametersEncoder: ParameterEncoder {
       let queryItem = URLQueryItem(name: key, value: "\(unwrappedValue)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
       components.queryItems?.append(queryItem)
     }
+    
+    guard !(components.queryItems?.isEmpty ?? false) else {
+      return
+    }
 
     urlRequest.url = components.url
   }
