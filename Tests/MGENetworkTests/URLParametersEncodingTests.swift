@@ -27,14 +27,19 @@ final class URLParametersEncoderTests: XCTestCase {
     try? URLParametersEncoder.encode(urlRequest: &urlRequest, with: ["foo1": "bar1", "foo2": "bar2"])
     
     guard
-      let urlString = "https://postman-echo.com/get?foo1=bar1&foo2=bar2".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-      let expectedURL = URL(string: urlString)
+      let urlString1 = "https://postman-echo.com/get?foo1=bar1&foo2=bar2".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+      let urlString2 = "https://postman-echo.com/get?foo2=bar2&foo1=bar1".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+      let expectedURL1 = URL(string: urlString1),
+      let expectedURL2 = URL(string: urlString2)
     else {
       XCTFail()
       return
     }
     
-    XCTAssertEqual(urlRequest.url?.absoluteString, expectedURL.absoluteString)
+    let isFirstCaseTrue = urlRequest.url?.absoluteString.caseInsensitiveCompare(expectedURL1.absoluteString) == .orderedSame
+    let isSecondCaseTrue = urlRequest.url?.absoluteString.caseInsensitiveCompare(expectedURL2.absoluteString) == .orderedSame
+    
+    XCTAssertTrue(isFirstCaseTrue || isSecondCaseTrue)
   }
   
   func test_GETRequestWithQueryItems() {

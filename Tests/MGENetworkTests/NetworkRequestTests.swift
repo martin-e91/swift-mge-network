@@ -31,18 +31,21 @@ final class RequestTests: XCTestCase {
   
   func test_GETRequestCreation() {
     let api = Api()
-    let method: HTTPMethod = .get
-    let sut = NetworkRequest(method: method, endpoint: api)
+    let methods: [HTTPMethod] = [.get, .head, .post, .put, .patch, .delete]
     
-    guard let urlRequest = try? sut.asURLRequest() else {
-      XCTFail()
-      return
+    try? methods.forEach { method in
+      let sut = NetworkRequest(method: method, endpoint: api)
+      
+      guard let urlRequest = try? sut.asURLRequest() else {
+        XCTFail()
+        return
+      }
+      
+      XCTAssertEqual(urlRequest.allHTTPHeaderFields, sut.headers)
+      XCTAssertEqual(urlRequest.url, try api.asURL(), "Wrong resulting url")
+      XCTAssertEqual(urlRequest.url?.absoluteString, urlString)
+      XCTAssertEqual(urlRequest.httpMethod, method.rawValue, "Wrong resulting method")
     }
-    
-    XCTAssertEqual(urlRequest.allHTTPHeaderFields, sut.headers)
-    XCTAssertEqual(urlRequest.url, try api.asURL(), "Wrong resulting url")
-    XCTAssertEqual(urlRequest.url?.absoluteString, urlString)
-    XCTAssertEqual(urlRequest.httpMethod, method.rawValue, "Wrong resulting method")
   }
   
   func test_HTTPMethodValues() {
