@@ -42,6 +42,28 @@ final class URLParametersEncoderTests: XCTestCase {
     XCTAssertTrue(isFirstCaseTrue || isSecondCaseTrue)
   }
   
+  func test_QueryParametersCorrectness() {
+    guard let url = URL(string: "www.google.com") else {
+      XCTFail()
+      return
+    }
+    
+    var urlRequest = URLRequest(url: url)
+    let parameters = ["foo1": "bar1", "foo2": "bar2"]
+    try? URLParametersEncoder.encode(urlRequest: &urlRequest, with: parameters)
+    
+    guard let requestURL = urlRequest.url else {
+      XCTFail()
+      return
+    }
+    
+    let expectedComponents = URLComponents(url: requestURL, resolvingAgainstBaseURL: false)
+    
+    XCTAssertEqual(expectedComponents?.queryItems?.count, parameters.count)
+    XCTAssertEqual(parameters["foo1"], expectedComponents?.queryItems?.first(where: { $0.name == "foo1" })?.value)
+    XCTAssertEqual(parameters["foo2"], expectedComponents?.queryItems?.first(where: { $0.name == "foo2" })?.value)
+  }
+  
   func test_GETRequestWithQueryItems() {
     let request = NetworkRequest(
       method: .get,
