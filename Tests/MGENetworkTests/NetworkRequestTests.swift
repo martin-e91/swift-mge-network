@@ -76,7 +76,18 @@ final class RequestTests: XCTestCase {
     wait(for: [expectation], timeout: 10)
   }
   
-  func test_bodyParametersEncoding() {
+  func test_BodyParameterIsNilForGETRequests() {
+    let request = NetworkRequest(method: .get, endpoint: try! "www.google.com")
+    
+    guard let urlRequest = try? request.asURLRequest() else {
+      XCTFail()
+      return
+    }
+    
+    XCTAssertNil(urlRequest.httpBody, "Body must be nil for GET requests")
+  }
+  
+  func test_BodyParametersEncoding() {
     let expectedObject = POSTBody(message: "hello")
     
     guard let parameters = try? expectedObject.asDictionary() else {
