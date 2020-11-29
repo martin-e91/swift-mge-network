@@ -9,8 +9,14 @@ public enum NetworkError: Error {
   /// Occurs when 400 status code is received from the server.
   case badRequest
   
+  /// An error occuring while performing encoding operations.
+  case encodingFailure
+  
   /// Error occuring when data is invalid.
   case invalidData
+
+  /// Error occuring when building a request with invalid parameter.
+  case invalidParameters(parameters: Any)
 
   /// Error occurring when trying to create an invalid `URL` instance.
   case invalidURL
@@ -36,16 +42,22 @@ public enum NetworkError: Error {
     case .badRequest:
       return "Request was invalid"
       
+    case .encodingFailure:
+      return "Encoding failed"
+      
     case .forbidden:
       return "Received Forbidden statu code error from server"
       
     case .invalidData:
       return "Data is invalid"
       
+    case let .invalidParameters(parameters):
+      return "Parameter for the request was invalid. \(parameters)"
+      
     case .invalidURL:
       return "Given URL was invalid"
       
-    case .generic(let error):
+    case let .generic(error):
       return error.localizedDescription
     
     case .notFound:

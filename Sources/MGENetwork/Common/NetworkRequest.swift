@@ -10,49 +10,57 @@ public struct NetworkRequest: Requestable {
   
   public let method: HTTPMethod
   
-  public let defaultHeaders: HTTPHeaders
+  public let headers: HTTPHeaders
   
-  public let additionalHeaders: HTTPHeaders
-  
-  public let parameters: Encodable?
-  
-  /// The HTTP body for the request.
-  private var body: Data? {
-    do {
-      return try JSONSerialization.data(withJSONObject: parameters)
-    } catch {
-      Log.error(title: "Invalid parameters", message: error.localizedDescription)
-    }
-    return nil
-  }
-  
+  public let parameters: Parameters
+
   public init(
     method: HTTPMethod,
     endpoint: Endpoint,
     defaultHeaders: HTTPHeaders = ["Accept": "application/json", "Content-Type": "application/json"],
-    header: HTTPHeaders = [:],
-    parameters: Encodable? = nil
+    additionalHeaders: HTTPHeaders = [:],
+    parameters: Parameters = [:]
   ) {
     self.method = method
     self.endpoint = endpoint
-    self.defaultHeaders = defaultHeaders
-    self.additionalHeaders = header
+    self.headers = defaultHeaders.merging(additionalHeaders) { $1 }
     self.parameters = parameters
   }
   
   /// Creates a simple get request for the given urlString.
   /// - Parameter urlString: The url string for this request.
   public init(urlString: String) {
-    let endpoint = ConcreteEndpoint(urlString: urlString)
-    self.init(method: .get, endpoint: endpoint, header: [:])
+    self.init(method: .get, endpoint: urlString)
   }
   
   public func asURLRequest() throws -> URLRequest {
-    let url = try endpoint.asURL()
-    var requestUrl = URLRequest(url: url)
-    requestUrl.httpMethod = method.rawValue
-    requestUrl.allHTTPHeaderFields = additionalHeaders
-    requestUrl.httpBody = body
-    return requestUrl
+    guard let url = try? endpoint.asURL() else {
+      throw NetworkError.invalidURL
+    }
+    
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = method.rawValue
+    urlRequest.allHTTPHeaderFields = headers
+    
+    try addParameters(to: &urlRequest)
+    
+    return urlRequest
+  }
+  
+  private func addParameters(to request: inout URLRequest) throws {
+    do {
+      switch method {
+      case .get:
+        try URLParametersEncoder.encode(urlRequest: &request, with: parameters)
+        
+      case .post, .put, .patch:
+        try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
+        
+      default:
+        break
+      }
+    } catch {
+      throw NetworkError.encodingFailure
+    }
   }
 }
