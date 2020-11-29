@@ -20,7 +20,7 @@ enum Requests {
   func make() -> NetworkRequest {
     switch self {
     case .randomFact:
-      let endpoint = ConcreteEndpoint(urlString: "\(baseUrl)/jokes/random")
+      let endpoint = "\(baseUrl)/jokes/random"
       return NetworkRequest(method: .get, endpoint: endpoint, additionalHeaders: additionalHeader)
     }
   }
