@@ -20,7 +20,7 @@ public protocol NetworkProvider {
   ///   - request: The request to process.
   ///   - completion: Completion block for handling result.
   @discardableResult
-  func perform<T>(_ request: NetworkRequest, completion: @escaping Completion<T, NetworkError>) -> Operation where T : Decodable
+  func perform<T>(_ request: Requestable, completion: @escaping Completion<T, NetworkError>) -> Operation where T : Decodable
   
   /// Downloads raw data from the given url.
   /// - Parameters:

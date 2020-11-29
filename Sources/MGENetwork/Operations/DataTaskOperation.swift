@@ -22,7 +22,7 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
   /// - Parameters:
   ///   - session: the session instance to be used by this operation.
   ///   - request: the request to be performed.
-  required public init(session: URLSession, request: NetworkRequest) {
+  required public init(session: URLSession, request: Requestable) {
     self.session = session
     self.request = request
   }
