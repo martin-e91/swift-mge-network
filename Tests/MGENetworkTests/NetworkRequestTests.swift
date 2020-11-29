@@ -7,8 +7,10 @@ import XCTest
 
 final class RequestTests: XCTestCase {
   private struct Api: Endpoint {
+    var baseURL: String { "www.google.com" }
+    
     func asURL() throws -> URL {
-      return URL(string: "www.google.com")!
+      return URL(string: baseURL)!
     }
   }
   
