@@ -64,7 +64,7 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
         self.finish(with: clientError)
       }
             
-      let networkResponse = NetworkResponse(body: decodedData, request: self.request, httpResponse: response)
+      let networkResponse = NetworkResponse(body: decodedData, request: urlRequest, httpResponse: response)
       self.finish(with: networkResponse.body)
     }
     task.resume()

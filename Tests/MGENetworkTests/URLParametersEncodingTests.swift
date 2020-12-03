@@ -11,6 +11,8 @@ final class URLParametersEncoderTests: XCTestCase {
     let url: String
   }
   
+  private struct PlaceholderResponse: Decodable {}
+  
   let networkProvider: NetworkProvider = NetworkClient()
   
   func test_BuildingRequestWithQueryItems() {
@@ -65,7 +67,7 @@ final class URLParametersEncoderTests: XCTestCase {
   }
   
   func test_GETRequestWithQueryItems() {
-    let request = NetworkRequest(
+    let request = NetworkRequest<Response>(
       method: .get,
       endpoint: "https://postman-echo.com/get",
       parameters: ["foo1": "bar1", "foo2": "bar2"]
@@ -73,7 +75,7 @@ final class URLParametersEncoderTests: XCTestCase {
     
     let expectation = self.expectation(description: "Response received")
     
-    networkProvider.perform(request) { (result: Result<Response, NetworkError>) in
+    networkProvider.perform(request) { result in
       switch result {
       case .failure(let error):
         XCTFail(error.message)
@@ -96,7 +98,7 @@ final class URLParametersEncoderTests: XCTestCase {
   
   func test_emptyQueryParameters() {
     let endpoint = "https://postman-echo.com/get"
-    let request = NetworkRequest(method: .get, endpoint: endpoint)
+    let request = NetworkRequest<PlaceholderResponse>(method: .get, endpoint: endpoint)
     
     guard let urlRequest = try? request.asURLRequest() else {
       XCTFail()
