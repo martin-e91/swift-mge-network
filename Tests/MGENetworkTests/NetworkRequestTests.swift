@@ -23,6 +23,9 @@ final class RequestTests: XCTestCase {
     let json: POSTBody
   }
   
+  /// Used when the response type can be ignored in the test.
+  private struct PlaceholderResponse: Decodable {}
+  
   fileprivate var urlString: String { "www.google.com" }
   
   let networkClient: NetworkProvider = {
@@ -36,7 +39,7 @@ final class RequestTests: XCTestCase {
     let methods: [HTTPMethod] = [.get, .head, .post, .put, .patch, .delete]
     
     try? methods.forEach { method in
-      let sut = NetworkRequest(method: method, endpoint: api)
+      let sut = NetworkRequest<PlaceholderResponse>(method: method, endpoint: api)
       
       guard let urlRequest = try? sut.asURLRequest() else {
         XCTFail()
@@ -60,11 +63,11 @@ final class RequestTests: XCTestCase {
   }
   
   func test_POSTRequest() {
-    let request = NetworkRequest(method: .post, endpoint: "https://postman-echo.com/post", parameters: ["message": "Ciao Postman 👋🏾"])
+    let request = NetworkRequest<Response>(method: .post, endpoint: "https://postman-echo.com/post", parameters: ["message": "Ciao Postman 👋🏾"])
     
     let expectation = XCTestExpectation(description: "Successful POST Request")
     
-    networkClient.perform(request) { (result: Result<Response, NetworkError>) in
+    networkClient.perform(request) { result in
       switch result {
       case .failure(let error):
         XCTFail(error.message)
@@ -79,7 +82,7 @@ final class RequestTests: XCTestCase {
   }
   
   func test_BodyParameterIsNilForGETRequests() {
-    let request = NetworkRequest(method: .get, endpoint: try! "www.google.com")
+    let request = NetworkRequest<PlaceholderResponse>(method: .get, endpoint: "www.google.com")
     
     guard let urlRequest = try? request.asURLRequest() else {
       XCTFail()
@@ -97,7 +100,7 @@ final class RequestTests: XCTestCase {
       return
     }
     
-    let request = NetworkRequest(
+    let request = NetworkRequest<PlaceholderResponse>(
       method: .post,
       endpoint: "www.google.com",
       parameters: parameters
