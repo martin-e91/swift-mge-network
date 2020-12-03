@@ -6,6 +6,9 @@ import Foundation
 
 /// An entity that can be used to describe an HTTP request.
 public protocol Requestable {
+  /// Type of the response associated with this `Requestable`.
+  associatedtype ResponseType: Decodable
+
   /// The endpoint of this request.
   var endpoint: Endpoint { get }
   

@@ -4,13 +4,13 @@
 
 import Foundation
 
-/// A response of a network call generic on the body.
-struct NetworkResponse<T> where T: Decodable {
+/// A response of a network call generic over the body.
+struct NetworkResponse<BodyType> where BodyType: Decodable {
   /// This response's body object.
-  let body: T
+  let body: BodyType
   
   /// The request associated with this response.
-  let request: Requestable
+  let request: URLRequest
   
   /// The metadata associated with the response to an HTTP protocol URL load request.
   let httpResponse: HTTPURLResponse
