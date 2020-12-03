@@ -11,17 +11,17 @@ enum Requests {
   
   private var baseUrl: String { "https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com" }
   
-  private var defaultHeader: HTTPHeader {
+  private var additionalHeader: HTTPHeaders {
     [
       "x-rapidapi-key": "2255cfb0c7msha1adee03527a925p1d265ajsn9a58a3fe1293"
     ]
   }
   
-  func make() -> NetworkRequest {
+  func make() -> NetworkRequest<ChuckNorrisFact> {
     switch self {
     case .randomFact:
-      let endpoint = ConcreteEndpoint(urlString: "\(baseUrl)/jokes/random")
-      return NetworkRequest(method: .get, endpoint: endpoint, header: defaultHeader)
+      let endpoint = "\(baseUrl)/jokes/random"
+      return NetworkRequest(method: .get, endpoint: endpoint, additionalHeaders: additionalHeader)
     }
   }
 }

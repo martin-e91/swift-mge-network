@@ -43,6 +43,7 @@ class ViewController: UIViewController {
 
     textLabel.text = nil
     textLabel.numberOfLines = 0
+    textLabel.textAlignment = .center
     
     setupButton()
     setupHud()
@@ -74,7 +75,11 @@ class ViewController: UIViewController {
   func fetchData() {
     showHud()
     
-    networkClient.perform(Requests.randomFact.make()) { [weak self] (result: Result<ChuckNorrisFact, NetworkError>) in
+    networkClient.perform(Requests.randomFact.make()) { [weak self] result in
+      defer {
+        self?.hideHud()
+      }
+      
       guard let self = self else {
         return
       }
@@ -86,20 +91,21 @@ class ViewController: UIViewController {
       case .success(let data):
         self.textLabel.text = data.text.capitalized
         self.downloadImage(from: data.iconUrl) { [weak self] imageData in
-          guard let self = self else {
+          guard
+            let self = self,
+            let imageData = imageData
+          else {
             return
           }
           
           self.imageView.image = UIImage(data: imageData)
           self.view.setNeedsLayout()
-          
-          self.hideHud()
         }
       }
     }
   }
   
-  private func downloadImage(from urlString: String, completion: @escaping (Data) -> Void) {
+  private func downloadImage(from urlString: String, completion: @escaping (Data?) -> Void) {
     self.networkClient.download(from: urlString) { [weak self] result in
       guard let self = self else {
         return
@@ -108,6 +114,7 @@ class ViewController: UIViewController {
       switch result {
       case .failure(let error):
         self.showDialog(with: error)
+        completion(nil)
         
       case .success(let data):
         completion(data)
@@ -115,8 +122,8 @@ class ViewController: UIViewController {
     }
   }
   
-  private func showDialog(with error: Error) {
-    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+  private func showDialog(with error: NetworkError) {
+    let alert = UIAlertController(title: "Error", message: error.message, preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
     present(alert, animated: true, completion: nil)
   }

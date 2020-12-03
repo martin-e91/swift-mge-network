@@ -10,32 +10,32 @@ import Foundation
 
 /// An operation for network calls, using data tasks generated from the given session.
 /// Performs a `NetworkRequest` a completion upon its task termination.
-public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, NetworkError> {
+public final class DataTaskOperation<RequestType, DataType>: CompletionOperation<DataType, NetworkError>
+where RequestType: Requestable, RequestType.ResponseType == DataType {
   
   /// The session used by this operation.
   private let session: URLSession
   
   /// The request that will be performed by this operation.
-  private let request: Requestable
+  private let request: RequestType
   
   /// Creates a new DataTaskOperation that will use the given session for performing the given request.
   /// - Parameters:
   ///   - session: the session instance to be used by this operation.
   ///   - request: the request to be performed.
-  required public init(session: URLSession, request: NetworkRequest) {
+  required public init(session: URLSession, request: RequestType) {
     self.session = session
     self.request = request
   }
   
   public override func execute() {
     guard let urlRequest = try? request.asURLRequest() else {
+      Log.error(title: "Invalid URL", message: NetworkError.invalidURL.message)
       finish(with: .invalidURL)
       return
     }
     
-    Log.debug(title: "➡️ SENDING \(request.method.rawValue) Request", message: "to \(request.endpoint)")
-    
-//    Log.info(title: "➡️ SENDING \(request.method.rawValue) Request", message: request.endpoint)
+    Log.debug(title: "➡️ SENDING REQUEST", message: "\(request)")
     
     let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
@@ -43,9 +43,10 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
       }
       
       if let error = error {
+        Log.error(title: "An error occurred", message: "\(error.localizedDescription)")
         self.finish(with: .generic(error))
       }
-
+     
       Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON ?? "")
       
       guard
@@ -53,36 +54,70 @@ public final class DataTaskOperation<T: Decodable>: CompletionOperation<T, Netwo
         let decodedData = try? self.decode(body),
         let response = response as? HTTPURLResponse
       else {
+        Log.error(title: "Invalid data", message: NetworkError.invalidData.message)
         self.finish(with: .invalidData)
         return
       }
       
-      let networkResponse = NetworkResponse(body: decodedData, request: self.request, httpResponse: response)
+      if let clientError = self.clientError(from: response.httpStatus) {
+        Log.error(title: "Client Error", message: clientError.message)
+        self.finish(with: clientError)
+      }
+            
+      let networkResponse = NetworkResponse(body: decodedData, request: urlRequest, httpResponse: response)
+      
+      Log.debug(title: "DECODED RESPONSE", message: networkResponse)
+      
       self.finish(with: networkResponse.body)
     }
     task.resume()
   }
   
-  private func decode(_ data: Data) throws -> T? {
+  /// Calls `finish` with an error associated with the `HTTPStatusCode`.
+  /// - Parameter statusCode: the statusCode received by the server.
+  private func clientError(from statusCode: HTTPStatusCode?) -> NetworkError? {
+    guard statusCode?.responseType == .some(.clientError) else {
+      return nil
+    }
+    
+    switch statusCode {
+    case .badRequest:
+      return .badRequest
+      
+    case .forbidden:
+      return .forbidden
+      
+    case .notFound:
+      return .notFound
+      
+    case .unauthorized:
+      return .unauthorized
+      
+    default:
+      return .unknown
+    }
+  }
+  
+  private func decode(_ data: Data) throws -> DataType? {
     let decoder = JSONDecoder()
     
     do {
-      let decodedData = try decoder.decode(T.self, from: data)
+      let decodedData = try decoder.decode(DataType.self, from: data)
       return decodedData
     } catch DecodingError.keyNotFound(let key, let context) {
       Log.debug(
-        title: "Couldn't decode '\(T.self)",
+        title: "Couldn't decode '\(DataType.self)",
         message: "Missing key '\(key.stringValue)' – \(context.debugDescription)"
       )
     } catch DecodingError.valueNotFound(let type, let context) {
       Log.debug(
-        title: "Couldn't decode '\(T.self)'",
+        title: "Couldn't decode '\(DataType.self)'",
         message: "missing \(type) value – \(context.debugDescription)"
       )
     } catch DecodingError.dataCorrupted(let context) {
       Log.debug(title: "Corrupted data", message: "\(context.debugDescription)")
     } catch let error {
-      Log.debug(title: "Couldn't decode '\(T.self)'", message: "\(error.localizedDescription)")
+      Log.debug(title: "Couldn't decode '\(DataType.self)'", message: "\(error.localizedDescription)")
     }
     return nil
   }
