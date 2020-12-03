@@ -5,7 +5,7 @@
 import Foundation
 
 /// Models a network request.
-public struct NetworkRequest: Requestable {  
+public struct NetworkRequest: Requestable {
   public let endpoint: Endpoint
   
   public let method: HTTPMethod
