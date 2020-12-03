@@ -35,7 +35,7 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
       return
     }
     
-    Log.debug(title: "➡️ SENDING \(request.method.rawValue) Request", message: "to \(request.endpoint)")
+    Log.debug(title: "➡️ SENDING REQUEST", message: "\(request)")
     
     let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
@@ -65,6 +65,9 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
       }
             
       let networkResponse = NetworkResponse(body: decodedData, request: urlRequest, httpResponse: response)
+      
+      Log.debug(title: "DECODED RESPONSE", message: networkResponse)
+      
       self.finish(with: networkResponse.body)
     }
     task.resume()
