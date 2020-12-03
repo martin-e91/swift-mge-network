@@ -5,7 +5,7 @@
 import Foundation
 
 /// An entity that can be used to describe an HTTP request.
-public protocol Requestable {
+public protocol Requestable: CustomStringConvertible {
   /// Type of the response associated with this `Requestable`.
   associatedtype ResponseType: Decodable
 
@@ -42,5 +42,17 @@ public extension Requestable {
   
   var parameters: Parameters {
     [:]
+  }
+  
+  var description: String {
+    let url = endpoint.completeURLString
+    let methodString = method.rawValue
+    
+    return """
+\(methodString) -> \(url)
+
+Parameters:
+\(parameters)
+"""
   }
 }
