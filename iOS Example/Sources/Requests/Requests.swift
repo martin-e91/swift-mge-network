@@ -17,7 +17,7 @@ enum Requests {
     ]
   }
   
-  func make() -> NetworkRequest {
+  func make() -> NetworkRequest<ChuckNorrisFact> {
     switch self {
     case .randomFact:
       let endpoint = "\(baseUrl)/jokes/random"

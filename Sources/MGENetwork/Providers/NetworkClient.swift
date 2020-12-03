@@ -19,8 +19,8 @@ public final class NetworkClient: NetworkProvider {
   }
   
   @discardableResult
-  public func perform<T>(_ request: Requestable, completion: @escaping Completion<T, NetworkError>) -> Operation where T : Decodable {
-    let operation = DataTaskOperation<T>(session: session, request: request)
+  public func perform<R, T>(_ request: R, completion: @escaping Completion<T, NetworkError>) -> Operation where R : Requestable, T == R.ResponseType {
+    let operation = DataTaskOperation<R, T>(session: session, request: request)
     operation.completion = completion
     queue.addOperation(operation)
     return operation

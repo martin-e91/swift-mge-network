@@ -4,8 +4,10 @@
 
 import Foundation
 
-/// Models a network request.
-public struct NetworkRequest: Requestable {
+/// Models a network request generic over the response type.
+public struct NetworkRequest<Response>: Requestable where Response: Decodable {
+  public typealias ResponseType = Response
+  
   public let endpoint: Endpoint
   
   public let method: HTTPMethod

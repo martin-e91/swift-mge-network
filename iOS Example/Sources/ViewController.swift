@@ -75,7 +75,7 @@ class ViewController: UIViewController {
   func fetchData() {
     showHud()
     
-    networkClient.perform(Requests.randomFact.make()) { [weak self] (result: Result<ChuckNorrisFact, NetworkError>) in
+    networkClient.perform(Requests.randomFact.make()) { [weak self] result in
       defer {
         self?.hideHud()
       }
