@@ -67,11 +67,11 @@ let request = NetworkRequest<MyResponse>(method: .get, endpoint: "www.domain.com
 ```swift 
 networkClient.perform(request) { [weak self] result in 
 	switch result {
-    case .failure(let error):
-    	self?.handle(error)
+	case .failure(let error):
+    		self?.handle(error)
     
-		case .success(let data):
-    	self?.updateUI(with: data)
+	case .success(let data):
+    		self?.updateUI(with: data)
   }
 }
 ```
