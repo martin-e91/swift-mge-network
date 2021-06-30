@@ -6,7 +6,7 @@ import Foundation
 
 /// Error occurring upon network tasks.
 public enum NetworkError: Error {
-  /// Occurs when 400 status code is received from the server.
+  /// Occurs when `400` status code is received from the server.
   case badRequest
   
   /// An error occuring while performing encoding operations.
@@ -21,16 +21,16 @@ public enum NetworkError: Error {
   /// Error occurring when trying to create an invalid `URL` instance.
   case invalidURL
 
-  /// Occurs when 403 status code is received from the server.
+  /// Occurs when `403` status code is received from the server.
   case forbidden
   
   /// A generic error.
   case generic(Error)
   
-  /// Occurs when 404 status code is received from the server.
+  /// Occurs when `404` status code is received from the server.
   case notFound
 
-  /// Occurs when 401 status code is received from the server.
+  /// Occurs when `401` status code is received from the server.
   case unauthorized
   
   /// Used when an unkown error occurs.

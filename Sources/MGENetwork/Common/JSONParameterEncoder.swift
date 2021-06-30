@@ -4,7 +4,7 @@
 
 import Foundation
 
-/// Encodes parameters for a request with a `JSON` body.
+/// The `ParameterEncoder` for performing the encoding of parameters as `JSON` body for a `URLRequest`.
 public enum JSONParameterEncoder: ParameterEncoder {
   public static func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
     do {

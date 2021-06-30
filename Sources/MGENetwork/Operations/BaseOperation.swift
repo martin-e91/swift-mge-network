@@ -1,9 +1,5 @@
 //
-//  BaseOperation.swift
-//  NetworkLayer
-//
-//  Created by Martin Essuman on 25/04/2020.
-//  Copyright © 2020 Martino Godswill Essuman. All rights reserved.
+//  MGENetwork
 //
 
 import Foundation
