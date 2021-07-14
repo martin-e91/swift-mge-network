@@ -4,7 +4,7 @@
 
 import Foundation
 
-/// An operation that executes a completion upon its termination.
+/// The `BaseOperation` implementation for executing a completion with a `Result` right before transitioning to `isFinished` state.
 open class CompletionOperation<T, E>: BaseOperation where E: Error {
   public var completion: Completion<T, E>?
   

@@ -4,7 +4,7 @@
 
 import Foundation
 
-internal extension Encodable {
+public extension Encodable {
   /// Try to create a dictionary instance from this `Encodable` object.
   /// - Throws: `NetworkError.encodingFailure`
   /// - Returns: a dictionary instance from this `Encodable` object.

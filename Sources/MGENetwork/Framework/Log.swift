@@ -9,5 +9,5 @@ import MGELogger
 #if DEBUG
 let Log = Logger(logLevel: .debug)
 #else
-let Log = Logger()
+let Log = Logger(logLevel: .error)
 #endif

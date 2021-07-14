@@ -4,7 +4,7 @@
 
 import Foundation
 
-/// Operation for download related tasks.
+/// The `CompletionOperation` implementation for executing download tasks.
 public final class DownloadOperation: CompletionOperation<Data, NetworkError> {
   
   /// The session used by this operation.
