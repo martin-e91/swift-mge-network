@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Helpers
 
 /// An operation for network calls, using data tasks generated from the given session.
 /// Performs a `NetworkRequest` a completion upon its task termination.

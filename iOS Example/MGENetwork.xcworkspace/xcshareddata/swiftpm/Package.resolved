@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Helpers",
+        "repositoryURL": "git@github.com:martin-e91/Helpers.git",
+        "state": {
+          "branch": "develop",
+          "revision": "dc783078793a8309e05926304940dc6b8b863932",
+          "version": null
+        }
+      },
+      {
         "package": "MGELogger",
         "repositoryURL": "git@github.com:martin-e91/MGELogger.git",
         "state": {
