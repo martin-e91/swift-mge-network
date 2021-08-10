@@ -26,8 +26,45 @@ public final class NetworkClient: NetworkProvider {
     queue.addOperation(operation)
     return operation
   }
+
+  @discardableResult
+  public func download(from urlString: String, completion: @escaping Completion<Data, NetworkError>) -> Operation {
+    let operation = DownloadOperation(session: session, urlString: urlString)
+    operation.completion = completion
+    queue.addOperation(operation)
+    return operation
+  }
   
-  @available(iOS 13.0, *)
+  public func download(from url: URL, completion: @escaping Completion<Data, NetworkError>) -> Operation {
+    download(from: url.absoluteString, completion: completion)
+  }
+}
+
+@available(iOS 13.0, *)
+extension NetworkClient {
+  public func download(from url: URL) -> Future<Data, NetworkError> {
+    download(from: url.absoluteString)
+  }
+  
+  public func download(from urlString: String) -> Future<Data, NetworkError> {
+    Future<Data, NetworkError> { [weak self] promise in
+      guard let self = self else {
+        promise(.failure(.missingInstance))
+        return
+      }
+
+      self.download(from: urlString) { result in
+        switch result {
+        case let .success(value):
+          promise(.success(value))
+          
+        case let .failure(networkError):
+          promise(.failure(networkError))
+        }
+      }
+    }
+  }
+  
   public func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where T == R.ResponseType {
     Future<T, NetworkError> { [weak self] promise in
       guard let self = self else {
@@ -45,13 +82,5 @@ public final class NetworkClient: NetworkProvider {
         }
       }
     }
-  }
-
-  @discardableResult
-  public func download(from urlString: String, completion: @escaping Completion<Data, NetworkError>) -> Operation {
-    let operation = DownloadOperation(session: session, urlString: urlString)
-    operation.completion = completion
-    queue.addOperation(operation)
-    return operation
   }
 }
