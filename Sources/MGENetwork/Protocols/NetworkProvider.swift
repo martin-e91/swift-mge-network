@@ -24,7 +24,6 @@ public protocol NetworkProvider {
   ///   - Parameter request: The request to process.
   /// - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
   @available(iOS 13.0, *)
-  @discardableResult
   func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where R.ResponseType == T
   
   /// Downloads raw data from the given url.
