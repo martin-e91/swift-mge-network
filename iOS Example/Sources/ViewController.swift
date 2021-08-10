@@ -6,6 +6,7 @@
 //  Copyright © 2020 Martin Godswill Essuman. All rights reserved.
 //
 
+import Combine
 import UIKit
 import MGENetwork
 import MGELogger
@@ -22,6 +23,8 @@ class ViewController: UIViewController {
   private let hudView = UIView()
   
   private let activityIndicator = UIActivityIndicatorView(style: .large)
+  
+  private var subscriptions = Set<AnyCancellable>()
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -75,34 +78,35 @@ class ViewController: UIViewController {
   func fetchData() {
     showHud()
     
-    networkClient.perform(Requests.randomFact.make()) { [weak self] result in
-      defer {
+    networkClient.perform(Requests.randomFact.make())
+      .sink { [weak self] completion in
         self?.hideHud()
+        print(completion)
+      } receiveValue: { [weak self] fact in
+        self?.hideHud()
+        self?.handle(fact: fact)
       }
+      .store(in: &subscriptions)
+    return
+
       
-      guard let self = self else {
-        return
-      }
-      
-      switch result {
-      case .failure(let error):
-        self.showDialog(with: error)
-        
-      case .success(let data):
-        self.textLabel.text = data.text.capitalized
-        self.downloadImage(from: data.iconUrl) { [weak self] imageData in
-          guard
-            let self = self,
-            let imageData = imageData
-          else {
-            return
-          }
-          
-          self.imageView.image = UIImage(data: imageData)
-          self.view.setNeedsLayout()
-        }
-      }
-    }
+//    networkClient.perform(Requests.randomFact.make()) { [weak self] result in
+//      defer {
+//        self?.hideHud()
+//      }
+//
+//      guard let self = self else {
+//        return
+//      }
+//
+//      switch result {
+//      case .failure(let error):
+//        self.showDialog(with: error)
+//
+//      case .success(let fact):
+//        self.handle(fact: fact)
+//      }
+//    }
   }
   
   private func downloadImage(from urlString: String, completion: @escaping (Data?) -> Void) {
@@ -126,6 +130,19 @@ class ViewController: UIViewController {
     let alert = UIAlertController(title: "Error", message: error.message, preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
     present(alert, animated: true, completion: nil)
+  }
+  
+  private func handle(fact: ChuckNorrisFact) {
+    self.textLabel.text = fact.text.capitalized
+    self.downloadImage(from: fact.iconUrl) { [weak self] imageData in
+      guard let self = self, let imageData = imageData
+      else {
+        return
+      }
+      
+      self.imageView.image = UIImage(data: imageData)
+      self.view.setNeedsLayout()
+    }
   }
   
   private func showHud() {

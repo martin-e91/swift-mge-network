@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Combine
 
 #warning("Logger configuration can be exposed as a protocol")
 
@@ -16,7 +17,14 @@ public protocol NetworkProvider {
   ///   - request: The request to process.
   ///   - completion: Completion block for handling result.
   @discardableResult
-  func perform<R, T>(_ request: R, completion: @escaping Completion<T, NetworkError>) -> Operation where R: Requestable, R.ResponseType == T
+  func perform<R: Requestable, T>(_ request: R, completion: @escaping Completion<T, NetworkError>) -> Operation where R.ResponseType == T
+  
+  /// Performs a request against the network whose result is returned in a `Future` instance.
+  ///   - Parameter request: The request to process.
+  /// - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
+  @available(iOS 13.0, *)
+  @discardableResult
+  func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where R.ResponseType == T
   
   /// Downloads raw data from the given url.
   /// - Parameters:

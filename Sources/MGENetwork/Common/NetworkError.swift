@@ -27,6 +27,9 @@ public enum NetworkError: Error {
   /// A generic error.
   case generic(Error)
   
+  /// The instance does not exist anymore.
+  case missingInstance
+  
   /// Occurs when `404` status code is received from the server.
   case notFound
 
@@ -40,34 +43,37 @@ public enum NetworkError: Error {
   public var message: String {
     switch self {
     case .badRequest:
-      return "Request was invalid"
+      return "Request was invalid."
       
     case .encodingFailure:
-      return "Encoding failed"
+      return "Encoding failed."
       
     case .forbidden:
-      return "Received Forbidden statu code error from server"
+      return "Received Forbidden statu code error from server."
       
     case .invalidData:
-      return "Data is invalid"
+      return "Data is invalid."
       
     case let .invalidParameters(parameters):
       return "Parameter for the request was invalid. \(parameters)"
       
     case .invalidURL:
-      return "Given URL was invalid"
+      return "Given URL was invalid."
       
     case let .generic(error):
       return error.localizedDescription
+      
+    case .missingInstance:
+      return "The instance was deallocated."
     
     case .notFound:
-      return "Received Not Found status code error from server"
+      return "Received Not Found status code error from server."
       
     case .unauthorized:
-      return "Received Unauthorized error from server"
+      return "Received Unauthorized error from server."
       
     case .unknown:
-      return "Something went wrong"
+      return "Something went wrong."
     }
   }
 }

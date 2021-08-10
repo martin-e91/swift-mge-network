@@ -3,9 +3,10 @@
 //
 
 import Foundation
+import Combine
 
 /// A client for making network calls.
-public final class NetworkClient: NetworkProvider {  
+public final class NetworkClient: NetworkProvider {
   /// The queue for network related operations.
   private lazy var queue = OperationQueue()
   
@@ -26,6 +27,26 @@ public final class NetworkClient: NetworkProvider {
     return operation
   }
   
+  @available(iOS 13.0, *)
+  public func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where T == R.ResponseType {
+    Future<T, NetworkError> { [weak self] promise in
+      guard let self = self else {
+        promise(.failure(.missingInstance))
+        return
+      }
+
+      self.perform(request) { result in
+        switch result {
+        case let .success(value):
+          promise(.success(value))
+          
+        case let .failure(networkError):
+          promise(.failure(networkError))
+        }
+      }
+    }
+  }
+
   @discardableResult
   public func download(from urlString: String, completion: @escaping Completion<Data, NetworkError>) -> Operation {
     let operation = DownloadOperation(session: session, urlString: urlString)
