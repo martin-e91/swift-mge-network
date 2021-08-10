@@ -5,7 +5,7 @@
 import Foundation
 
 /// A response of a network call generic over the body.
-struct NetworkResponse<BodyType> where BodyType: Decodable {
+internal struct NetworkResponse<BodyType> where BodyType: Decodable {
   /// This response's body object.
   let body: BodyType
   
