@@ -1,4 +1,4 @@
-name: Documentation
+name: Documentation (SwiftDoc)
 
 on:
   push:
@@ -21,3 +21,5 @@ jobs:
         with:
           inputs: "Sources/MGENetwork"
           output: "Documentation"
+          module-name: "MGENetwork"
+          format: html
