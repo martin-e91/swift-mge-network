@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// The `ParameterEncoder` for performing the encoding of query parameters for a `URLRequest`.
 public enum URLParametersEncoder: ParameterEncoder {
   public static func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
     defer {
@@ -14,10 +15,7 @@ public enum URLParametersEncoder: ParameterEncoder {
       return
     }
     
-    guard
-      let url = urlRequest.url,
-      var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-    else {
+    guard let url = urlRequest.url, var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
       throw NetworkError.invalidURL
     }
 

@@ -1,9 +1,5 @@
 //
-//  DownloadOperation.swift
-//  NetworkLayer
-//
-//  Created by Martin Essuman on 23/08/2020.
-//  Copyright © 2020 Martino Godswill Essuman. All rights reserved.
+//  MGENetwork
 //
 
 import Foundation

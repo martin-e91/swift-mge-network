@@ -238,7 +238,7 @@ enum HTTPStatusCode: Int, Error {
   /// - networkAuthenticationRequired: The client needs to authenticate to gain network access.
   case networkAuthenticationRequired = 511
   
-  /// The group)which the status code belongs to.
+  /// The group which the status code belongs to.
   var responseType: ResponseType {
     switch self.rawValue {
     case 100..<200:
