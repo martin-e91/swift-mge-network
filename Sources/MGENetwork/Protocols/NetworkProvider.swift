@@ -5,8 +5,6 @@
 import Foundation
 import Combine
 
-#warning("Logger configuration can be exposed as a protocol")
-
 /// An entity providing ways of making requests against the network.
 public protocol NetworkProvider {
   /// Whether the logging is enabled or not. Default value is `true`.
@@ -55,7 +53,6 @@ public protocol NetworkProvider {
   /// - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
   @available(iOS 13.0, *)
   func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where R.ResponseType == T
-  
 }
 
 public extension NetworkProvider {
@@ -64,7 +61,7 @@ public extension NetworkProvider {
       Log.isEnabled
     }
     set {
-      Log.isEnabled = newValue
+      newValue ? Log.enable() : Log.disable()
     }
   }
 }

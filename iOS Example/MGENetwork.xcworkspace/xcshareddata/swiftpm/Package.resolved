@@ -5,9 +5,9 @@
         "package": "MGELogger",
         "repositoryURL": "git@github.com:martin-e91/MGELogger.git",
         "state": {
-          "branch": null,
-          "revision": "510799267a1119402576e9d7450cf0bdd309e435",
-          "version": "0.1.0"
+          "branch": "develop",
+          "revision": "65c79db5802ad92603a775e7642d6b95beb9ac64",
+          "version": null
         }
       }
     ]

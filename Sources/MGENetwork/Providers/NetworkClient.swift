@@ -4,6 +4,7 @@
 
 import Foundation
 import Combine
+import MGELogger
 
 /// A client for making network calls.
 public final class NetworkClient: NetworkProvider {
@@ -13,10 +14,11 @@ public final class NetworkClient: NetworkProvider {
   /// The `URLSession` used for network tasks.
   private let session: URLSession
   
-  /// Instanciates the client with the given session.
-  /// - Parameter session: The session that will be used by this client. When not specified, it will  use a default configured session.
-  public init(with session: URLSession = URLSession(configuration: .default)) {
-    self.session = session
+  /// Creates a new instance with the given configuration.
+  /// - Parameter configuration: The configuration of the network client.
+  public init(with configuration: NetworkProviderConfiguration) {
+    self.session = configuration.session
+    Log = Logger(with: configuration.loggerConfiguration)
   }
   
   @discardableResult

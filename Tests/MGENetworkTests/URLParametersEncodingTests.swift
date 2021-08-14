@@ -13,7 +13,7 @@ final class URLParametersEncoderTests: XCTestCase {
   
   private struct PlaceholderResponse: Decodable {}
   
-  let networkProvider: NetworkProvider = NetworkClient()
+  let networkProvider: NetworkProvider = NetworkClient(with: MockNetworkProviderConfiguration())
   
   func test_BuildingRequestWithQueryItems() {
     guard

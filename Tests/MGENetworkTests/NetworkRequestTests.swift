@@ -29,7 +29,7 @@ final class RequestTests: XCTestCase {
   fileprivate var urlString: String { "www.google.com" }
   
   let networkClient: NetworkProvider = {
-    var client = NetworkClient()
+    var client = NetworkClient(with: MockNetworkProviderConfiguration())
     client.isLoggingEnabled = false
     return client
   }()
