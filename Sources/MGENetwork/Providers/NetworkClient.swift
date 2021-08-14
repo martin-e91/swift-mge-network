@@ -16,7 +16,7 @@ public final class NetworkClient: NetworkProvider {
   
   /// Creates a new instance with the given configuration.
   /// - Parameter configuration: The configuration of the network client.
-  public init(with configuration: NetworkProviderConfiguration) {
+  public init(with configuration: NetworkClientConfiguration) {
     self.session = configuration.session
     Log = Logger(with: configuration.loggerConfiguration)
   }

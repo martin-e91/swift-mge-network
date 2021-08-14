@@ -12,7 +12,24 @@ import MGENetwork
 import MGELogger
 
 class ViewController: UIViewController {
-  private let networkClient: NetworkProvider = NetworkClient()
+  private struct LoggingConfiguration: LoggerConfiguration {
+    var minimumLogLevel: Logger.Log.Level = .debug
+    var destination: Logger.Log.Destination = .console
+    let maxMessagesLength: UInt = 10000
+    let timestampFormatter: DateFormatter = {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "dd-MM-yyyy"
+      return formatter
+    }()
+    let truncatingToken: String = ""
+  }
+  private struct NetworkConfiguration: NetworkClientConfiguration {
+    let loggerConfiguration: LoggerConfiguration = LoggingConfiguration()
+    
+    let session: URLSession = URLSession(configuration: .default)
+  }
+  
+  private let networkClient: NetworkProvider = NetworkClient(with: NetworkConfiguration())
   
   @IBOutlet weak var imageView: UIImageView!
   
@@ -81,7 +98,6 @@ class ViewController: UIViewController {
     networkClient.perform(Requests.randomFact.make())
       .sink { [weak self] completion in
         self?.hideHud()
-        print(completion)
       } receiveValue: { [weak self] fact in
         self?.hideHud()
         self?.handle(fact: fact)
@@ -111,8 +127,7 @@ class ViewController: UIViewController {
   
   private func downloadImage(from urlString: String, completion: @escaping (Data?) -> Void) {
     networkClient.download(from: urlString)
-      .sink { networkError in
-        print(networkError)
+      .sink { _ in
       } receiveValue: { data in
         completion(data)
       }

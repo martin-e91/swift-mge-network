@@ -73,7 +73,6 @@ final class RequestTests: XCTestCase {
         XCTFail(error.message)
         
       case .success(let response):
-        print(response)
         expectation.fulfill()
       }
     }

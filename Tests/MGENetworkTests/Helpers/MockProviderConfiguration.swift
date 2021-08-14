@@ -8,7 +8,7 @@ import MGELogger
 @testable import MGENetwork
 
 /// The mock  network provider configuration user for unit tests.
-struct MockNetworkProviderConfiguration: NetworkProviderConfiguration {  
+struct MockNetworkProviderConfiguration: NetworkClientConfiguration {  
   let session: URLSession = URLSession(configuration: .default)
   let loggerConfiguration: LoggerConfiguration = MockLoggerConfiguration()
 }
