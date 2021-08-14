@@ -2,4 +2,11 @@
 rm -rf docs
 
 # Generate documentation.
-swift-doc generate Sources/MGENetwork --output Documentation --module-name MGENetwork --format html --base-url "./Documentation"
+jazzy \
+  --author "Martin Essuman" \
+  --author_url http://github.com/martin-e91.com \
+  --github_url https://github.com/martin-e91/MGENetwork \
+  --module MGENetwork \
+  --swift-build-tool spm \
+  --theme fullwidth \
+  --output docs
