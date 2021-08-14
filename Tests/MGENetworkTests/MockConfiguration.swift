@@ -4,8 +4,6 @@
 
 import Foundation
 
-@testable import MGENetwork
-
 class MockURLProtocol: URLProtocol {
   /// Maps the `URL`s to the `Data` to be returned.
   static var data = [URL?: Data]()
