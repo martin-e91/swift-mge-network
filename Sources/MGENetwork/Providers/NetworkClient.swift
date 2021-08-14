@@ -42,7 +42,7 @@ public final class NetworkClient: NetworkProvider {
   }
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.5, *)
 extension NetworkClient {
   public func download(from url: URL) -> Future<Data, NetworkError> {
     download(from: url.absoluteString)
