@@ -13,10 +13,16 @@ let package = Package(
     .library(name: "MGENetwork", targets: ["MGENetwork"]),
   ],
   dependencies: [
-    .package(url: "git@github.com:martin-e91/MGELogger.git", from: "0.8.0")
+    .package(url: "https://github.com/martin-e91/MGELogger.git", .branch("develop"))
   ],
   targets: [
-    .target(name: "MGENetwork", dependencies: ["MGELogger"]),
-    .testTarget(name: "MGENetworkTests", dependencies: ["MGENetwork", "MGELogger"]),
+    // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+    // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+    .target(
+      name: "MGENetwork",
+      dependencies: ["MGELogger"]),
+    .testTarget(
+      name: "MGENetworkTests",
+      dependencies: ["MGENetwork"]),
   ]
 )

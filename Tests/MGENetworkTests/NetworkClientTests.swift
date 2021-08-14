@@ -6,7 +6,7 @@ import XCTest
 @testable import MGENetwork
 
 final class NetworkClientTests: XCTestCase {
-  let client: NetworkProvider = NetworkClient()
+  let client: NetworkProvider = NetworkClient(with: MockNetworkProviderConfiguration())
   
   func test_SuccesfulDownload() {
     let urlString = "https://assets.chucknorris.host/img/avatar/chuck-norris.png"
