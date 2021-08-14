@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGENetwork - Endpoint</title>
+    <link rel="stylesheet" type="text/css" href="./Documentation/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="./Documentation">
+            <strong>
+                MGENetwork
+            </strong>
+            <span>Documentation</span>
+        </a>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#default implementations">Default Implementations</a><ul><li class="variable"><a href="#endpoint.path">path</a></li><li class="variable"><a href="#endpoint.completeurlstring">complete​URLString</a></li></ul></li><li><a href="#requirements">Requirements</a><ul><li class="variable"><a href="#endpoint.baseurl">base​URL</a></li><li class="variable"><a href="#endpoint.path">path</a></li><li class="function"><a href="#endpoint.asurl()">as​URL()</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Protocol</small>
+    <code class="name">Endpoint</code>
+</h1>
+
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">protocol</span> <span class="type">Endpoint</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>An endpoint provider.</p>
+
+</div>
+
+    <section id="default implementations">
+        <h2>Default Implementations</h2>
+
+        <div role="article" class="variable" id="endpoint.path">
+    <h3>
+        <code><a href="#endpoint.path">path</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">var</span> <span class="variable">path</span>: <span class="type">Path</span>  </body></html></code></pre>
+</div>
+</div>
+<div role="article" class="variable" id="endpoint.completeurlstring">
+    <h3>
+        <code><a href="#endpoint.completeurlstring">complete​URLString</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">var</span> <span class="variable">completeURLString</span>: <span class="type">String</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>The complete URL string of this endpoint.</p>
+
+</div>
+</div>
+    </section>
+
+
+    <section id="requirements">
+        <h2>Requirements</h2>
+
+        <div role="article" class="variable" id="endpoint.baseurl">
+    <h3>
+        <code>base​URL</code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">var</span> <span class="variable">baseURL</span>: <span class="type">String</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>The base URL string.</p>
+
+</div>
+<div class="discussion">
+    <aside class="note" title="Note">
+    <p>It should look something like <code>www.domain.com</code> or <code>https://domain.com</code>.</p>
+
+</aside>
+</div>
+</div>
+<div role="article" class="variable" id="endpoint.path">
+    <h3>
+        <code>path</code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">var</span> <span class="variable">path</span>: <span class="type">Path</span>   </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>The path parameters of this <code>Endpoint</code> instance.</p>
+
+</div>
+</div>
+<div role="article" class="function" id="endpoint.asurl()">
+    <h3>
+        <code>as​URL()</code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">func</span> <span class="function">asURL</span>() <span class="keyword">throws</span> -&gt; <span class="type">URL</span></body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Tries to generate an <code>URL</code> instance for this endpoint.
+Can throw an error while building the <code>URL</code> instance.</p>
+
+</div>
+</div>
+    </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2021-08-15T00:12:31+0200">August 15, 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
+</p>
+    </footer>
+</body>
+</html>
