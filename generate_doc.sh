@@ -5,7 +5,7 @@ rm -rf docs
 jazzy \
   --author "Martin Essuman" \
   --author_url http://github.com/martin-e91.com \
-  --github_url https://github.com/martin-e91/MGENetwork \
+  --github_url https://github.com/martin-e91/MGENetwork/docs \
   --module MGENetwork \
   --swift-build-tool spm \
   --theme fullwidth \
