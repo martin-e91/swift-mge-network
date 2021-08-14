@@ -30,14 +30,14 @@ public protocol NetworkProvider {
   /// - Parameters:
   ///   - urlString: The endpoint for the network task.
   ///  - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
-  @available(iOS 13.0, *)
+  @available(iOS 13.0, macOS 10.15, *)
   func download(from urlString: String) -> Future<Data, NetworkError>
   
   /// Downloads raw data from the given `url` wrapping the result in a `Future` instance.
   /// - Parameters:
   ///   - url: The endpoint `URL` for the network task.
   ///  - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
-  @available(iOS 13.0, *)
+  @available(iOS 13.0, macOS 10.15, *)
   func download(from url: URL) -> Future<Data, NetworkError>
   
   /// Performs the given `request` against the network returning the `Operation` instance that manages it.
@@ -51,7 +51,7 @@ public protocol NetworkProvider {
   /// Performs the given `request` against the network wrapping its result in a `Future` instance.
   ///   - Parameter request: The request to process.
   /// - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
-  @available(iOS 13.0, *)
+  @available(iOS 13.0, macOS 10.15, *)
   func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where R.ResponseType == T
 }
 
