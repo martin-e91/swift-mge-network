@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "MGELogger",
-        "repositoryURL": "git@github.com:martin-e91/MGELogger.git",
+        "repositoryURL": "https://github.com/martin-e91/MGELogger.git",
         "state": {
           "branch": "develop",
-          "revision": "65c79db5802ad92603a775e7642d6b95beb9ac64",
+          "revision": "45b139de888fadf44c6b8f6d4b37cd5077bc45b0",
           "version": null
         }
       }
