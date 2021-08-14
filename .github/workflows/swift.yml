@@ -1,4 +1,4 @@
-name: MGENetwork
+name: Build & Test
 
 on:
   push:
@@ -16,6 +16,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+    - name: Clean
+      run: swift package clean
     - name: Build
       run: swift build -v
     - name: Run tests
