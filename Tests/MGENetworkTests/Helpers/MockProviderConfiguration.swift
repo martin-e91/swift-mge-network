@@ -9,7 +9,7 @@ import MGELogger
 
 /// The mock  network provider configuration user for unit tests.
 struct MockNetworkProviderConfiguration: NetworkClientConfiguration {  
-  let session: URLSession = URLSession(configuration: .default)
+  let session: URLSession = URLSession(configuration: .ephemeral)
   let loggerConfiguration: LoggerConfiguration = MockLoggerConfiguration()
 }
 
