@@ -11,12 +11,24 @@ on:
 
 jobs:
   build:
-
+    
     runs-on: macos-latest
-
+    
     steps:
     - uses: actions/checkout@v2
     - name: Build
       run: swift build -v
     - name: Run tests
       run: swift test -v
+  
+- name: Swift Doc
+  # You may pin to the exact commit or the version.
+  # uses: SwiftDocOrg/swift-doc@f935ebfe524a0ff27bda07dadc3662e3e45b5125
+  uses: SwiftDocOrg/swift-doc@1.0.0-rc.1
+  with:
+    # A path to a directory containing Swift (`.swift`) files in your workspace
+    inputs: ./Sources
+    # The name of the module
+    module-name: MGENetwork
+    # The path for generated output
+    output: ./docs
