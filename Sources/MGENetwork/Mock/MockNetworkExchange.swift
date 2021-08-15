@@ -22,4 +22,9 @@ public struct MockNetworkExchange: Hashable {
       headerFields: (urlRequest.allHTTPHeaderFields ?? [:]).merging(response.headers) { $1 }
     )!
   }
+
+  public init(urlRequest: URLRequest, response: MockResponse) {
+    self.urlRequest = urlRequest
+    self.response = response
+  }
 }
