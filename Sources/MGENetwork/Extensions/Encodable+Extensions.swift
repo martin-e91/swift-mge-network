@@ -14,7 +14,7 @@ internal extension Encodable {
   /// - Throws: `NetworkError.encodingFailure`
   /// - Returns: The `Parameters.body` instance if the encode succeeds.
   func asBodyParameters() throws -> Parameters {
-    try asDictionary().asBodyParameters
+    try asDictionary().bodyParameters
   }
 
   /// Try to create a dictionary instance from this `Encodable` object.
@@ -34,6 +34,6 @@ internal extension Encodable {
   /// - Throws: `NetworkError.encodingFailure`
   /// - Returns: The `Parameters.query` instance if the encode succeeds.
   func asQueryParameters() throws -> Parameters {
-    try asDictionary().asQueryParameters
+    try asDictionary().queryParameters
   }
 }

@@ -30,7 +30,7 @@ final class HTTPParametersEncoderTests: XCTestCase {
   func testEmptyBodyParametersEncodingToEmptyJSON() throws {
     var urlRequest = URLRequest(url: URL(string: "www.google.com")!)
     
-    try HTTPParametersEncoder.encode(urlRequest: &urlRequest, with: [String: Any]().asBodyParameters)
+    try HTTPParametersEncoder.encode(urlRequest: &urlRequest, with: [String: Any]().bodyParameters)
     
     let data = try XCTUnwrap(urlRequest.httpBody)
     let string = try XCTUnwrap(String(data: data, encoding: .utf8))
