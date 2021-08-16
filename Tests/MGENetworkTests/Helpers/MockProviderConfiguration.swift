@@ -4,12 +4,22 @@
 
 import Foundation
 import MGELogger
+import MGENetwork
 
-@testable import MGENetwork
+/// The `NetworkClient` instance used for unit testing the module.
+let mockNetworkClient: NetworkClient = {
+  var client = NetworkClient(with: MockNetworkProviderConfiguration())
+  client.isLoggingEnabled = false
+  return client
+}()
 
 /// The mock  network provider configuration user for unit tests.
 struct MockNetworkProviderConfiguration: NetworkClientConfiguration {  
-  let session: URLSession = URLSession(configuration: .default)
+  let session: URLSession = {
+    let mockConfiguration = URLSessionConfiguration.default
+    mockConfiguration.protocolClasses = [MockURLProtocol.self]
+    return URLSession(configuration: mockConfiguration)
+  }()
   let loggerConfiguration: LoggerConfiguration = MockLoggerConfiguration()
 }
 

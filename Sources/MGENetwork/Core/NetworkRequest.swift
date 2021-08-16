@@ -8,6 +8,15 @@ import Foundation
 public struct NetworkRequest<Response>: Requestable where Response: Decodable {
   public typealias ResponseType = Response
   
+  // MARK: - Constants
+
+  /// The default HTTP headers for the request.
+  public static var defaultHeaders: HTTPHeaders {
+    ["Accept": "application/json", "Content-Type": "application/json"]
+  }
+
+  // MARK: - Stored Properties
+
   public let endpoint: Endpoint
   
   public let method: HTTPMethod
@@ -15,18 +24,32 @@ public struct NetworkRequest<Response>: Requestable where Response: Decodable {
   public let headers: HTTPHeaders
   
   public let parameters: Parameters
-
+  
+  public let timeoutInterval: TimeInterval
+  
+  // MARK: - Init
+  
+  /// Creates a `NetworkRequest` instance.
+  /// - Parameters:
+  ///   - method: The HTTP method of the request.
+  ///   - endpoint: The endpoint of the request.
+  ///   - defaultHeaders: The default headers of the request.
+  ///   - additionalHeaders: The additional headers of the request.
+  ///   - parameters: The parameters of the request.
+  ///   - timeoutInterval: The timeout interval of the request.
   public init(
     method: HTTPMethod,
     endpoint: Endpoint,
-    defaultHeaders: HTTPHeaders = ["Accept": "application/json", "Content-Type": "application/json"],
+    defaultHeaders: HTTPHeaders = defaultHeaders,
     additionalHeaders: HTTPHeaders = [:],
-    parameters: Parameters = [:]
+    parameters: Parameters = .query(parameters: [:]),
+    timeoutInterval: TimeInterval = 30
   ) {
     self.method = method
     self.endpoint = endpoint
     self.headers = defaultHeaders.merging(additionalHeaders) { $1 }
     self.parameters = parameters
+    self.timeoutInterval = timeoutInterval
   }
   
   /// Creates a simple get request for the given urlString.
@@ -43,26 +66,14 @@ public struct NetworkRequest<Response>: Requestable where Response: Decodable {
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = method.rawValue
     urlRequest.allHTTPHeaderFields = headers
+    urlRequest.timeoutInterval = timeoutInterval
     
-    try addParameters(to: &urlRequest)
-    
-    return urlRequest
-  }
-  
-  private func addParameters(to request: inout URLRequest) throws {
     do {
-      switch method {
-      case .get:
-        try URLParametersEncoder.encode(urlRequest: &request, with: parameters)
-        
-      case .post, .put, .patch:
-        try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
-        
-      default:
-        break
-      }
+      try HTTPParametersEncoder.encode(urlRequest: &urlRequest, with: parameters)
     } catch {
       throw NetworkError.encodingFailure
     }
+    
+    return urlRequest
   }
 }

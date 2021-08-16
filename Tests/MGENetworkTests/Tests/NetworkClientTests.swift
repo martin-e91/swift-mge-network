@@ -8,8 +8,19 @@ import XCTest
 final class NetworkClientTests: XCTestCase {
   let client: NetworkProvider = NetworkClient(with: MockNetworkProviderConfiguration())
   
-  func test_SuccesfulDownload() {
-    let urlString = "https://assets.chucknorris.host/img/avatar/chuck-norris.png"
+  override class func setUp() {
+    MockURLProtocol.add(
+      requests: [
+        MockNetworkExchange(
+          urlRequest: URLRequest(url: URL(string: "https://testSuccesfulDownload.com")!),
+          response: MockResponse(data: nil, headers: [:], httpVersion: "", statusCode: 200)
+        )
+      ]
+    )
+  }
+  
+  func testSuccesfulDownload() {
+    let urlString = "https://testSuccesfulDownload.com"
     let expectation = XCTestExpectation(description: "Download Expectation")
     
     client.download(from: urlString) { (result: Result<Data, NetworkError>) in

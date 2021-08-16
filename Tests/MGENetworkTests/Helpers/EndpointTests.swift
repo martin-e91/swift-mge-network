@@ -15,7 +15,7 @@ class EndpointTests: XCTestCase {
     }
   }
 
-  func test_CompleteEndpointBuilding() {
+  func testCompleteEndpointBuilding() {
     let sut: Endpoint = TestEndpoint()
     guard
       let expectedURL = URL(string: "www.domain.com/first/second/third")
@@ -28,7 +28,7 @@ class EndpointTests: XCTestCase {
     XCTAssertEqual(sut.completeURLString, expectedURL.absoluteString)
   }
   
-  func test_StringEndpoint() {
+  func testStringEndpoint() {
     let baseURL = "www.domain.com"
     let path = ["first", "second", "third"]
     let sut = "\(baseURL)/\((path.joined(separator: "/")))"
