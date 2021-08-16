@@ -12,4 +12,3 @@ public enum Parameters {
   /// The body parameters for the `NetworkRequest`.
   case body(parameters: [String: Any])
 }
-

@@ -5,6 +5,11 @@
 import Foundation
 
 internal extension Encodable {
+  /// The `Date` of the `Encodable`.
+  var encoded: Data? {
+    try? JSONEncoder().encode(self)
+  }
+
   /// Try to create a `Parameters.body` instance from the `Encodable` instance.
   /// - Throws: `NetworkError.encodingFailure`
   /// - Returns: The `Parameters.body` instance if the encode succeeds.

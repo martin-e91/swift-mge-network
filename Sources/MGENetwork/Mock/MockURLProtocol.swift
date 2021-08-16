@@ -26,6 +26,10 @@ public final class MockURLProtocol: URLProtocol {
   public override class func canInit(with request: URLRequest) -> Bool {
     true
   }
+  
+  public override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+    return request
+  }
 
   /// Adds the given set of requests to the mockable requests.
   /// - Parameter requests: The requests to add to the mockable set.

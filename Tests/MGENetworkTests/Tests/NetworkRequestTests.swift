@@ -3,11 +3,12 @@
 //
 
 import XCTest
+
 @testable import MGENetwork
 
 final class RequestTests: XCTestCase {
   private struct Api: Endpoint {
-    var baseURL: String { "www.google.com" }
+    var baseURL: String { "www.mockAddress.com" }
     
     func asURL() throws -> URL {
       return URL(string: baseURL)!
@@ -25,84 +26,52 @@ final class RequestTests: XCTestCase {
   
   /// Used when the response type can be ignored in the test.
   private struct PlaceholderResponse: Decodable {}
-  
-  fileprivate var urlString: String { "www.google.com" }
-  
-  let networkClient: NetworkProvider = {
-    var client = NetworkClient(with: MockNetworkProviderConfiguration())
-    client.isLoggingEnabled = false
-    return client
-  }()
-  
-  func test_GETRequestCreation() {
-    let api = Api()
+
+  func testURLRequestCreation() throws {
     let methods: [HTTPMethod] = [.get, .head, .post, .put, .patch, .delete]
     
-    try? methods.forEach { method in
-      let sut = NetworkRequest<PlaceholderResponse>(method: method, endpoint: api)
+    try methods.forEach { method in
+      let sut = NetworkRequest<PlaceholderResponse>(
+        method: method,
+        endpoint: "www.test.com",
+        defaultHeaders: ["default": "first"],
+        additionalHeaders: ["additional": "header"],
+        parameters: try POSTBody(message: "test").asBodyParameters(),
+        timeoutInterval: 10
+      )
+
+      XCTAssertEqual(sut.method, method)
+      XCTAssertEqual(sut.endpoint.baseURL, "www.test.com".baseURL)
+      XCTAssertEqual(sut.endpoint.completeURLString, "www.test.com".completeURLString)
+      XCTAssertEqual(sut.endpoint.path, "www.test.com".path)
+      XCTAssertEqual(try sut.endpoint.asURL(), try "www.test.com".asURL())
+      XCTAssertEqual(sut.headers, ["default": "first", "additional": "header"])
+      XCTAssertEqual(sut.timeoutInterval, 10)
       
-      guard let urlRequest = try? sut.asURLRequest() else {
-        XCTFail()
-        return
-      }
-      
-      XCTAssertEqual(urlRequest.allHTTPHeaderFields, sut.headers)
-      XCTAssertEqual(urlRequest.url, try api.asURL(), "Wrong resulting url")
-      XCTAssertEqual(urlRequest.url?.absoluteString, urlString)
-      XCTAssertEqual(urlRequest.httpMethod, method.rawValue, "Wrong resulting method")
-    }
-  }
-  
-  func test_HTTPMethodValues() {
-    XCTAssertEqual(HTTPMethod.get.rawValue, "GET", "Wrong string for method")
-    XCTAssertEqual(HTTPMethod.post.rawValue, "POST", "Wrong string for method")
-    XCTAssertEqual(HTTPMethod.put.rawValue, "PUT", "Wrong string for method")
-    XCTAssertEqual(HTTPMethod.delete.rawValue, "DELETE", "Wrong string for method")
-    XCTAssertEqual(HTTPMethod.head.rawValue, "HEAD", "Wrong string for method")
-    XCTAssertEqual(HTTPMethod.patch.rawValue, "PATCH", "Wrong string for method")
-  }
-  
-  func test_POSTRequest() {
-    let request = NetworkRequest<Response>(method: .post, endpoint: "https://postman-echo.com/post", parameters: .body(parameters: ["message": "Ciao Postman 👋🏾"]))
-    
-    let expectation = XCTestExpectation(description: "Successful POST Request")
-    
-    networkClient.perform(request) { result in
-      switch result {
-      case .failure(let error):
-        XCTFail(error.message)
+      switch sut.parameters {
+      case let .body(parameters):
+        XCTAssertEqual(parameters.nsDictionary, ["message": "test"].nsDictionary)
         
-      case .success:
-        expectation.fulfill()
+      case .query:
+        XCTFail()
       }
     }
-    
-    wait(for: [expectation], timeout: 10)
   }
   
-  func test_BodyParameterIsNilForGETRequests() {
+  func testNilBodyParameterWhenNotSpecified() throws {
     let request = NetworkRequest<PlaceholderResponse>(method: .get, endpoint: "www.google.com")
-    
-    guard let urlRequest = try? request.asURLRequest() else {
-      XCTFail()
-      return
-    }
-    
+    let urlRequest = try request.asURLRequest()
     XCTAssertNil(urlRequest.httpBody, "Body must be nil for GET requests")
   }
   
-  func test_BodyParametersEncoding() throws {
+  func testBodyParametersEncoding() throws {
     let expectedObject = POSTBody(message: "hello")
     
     let parameters = try expectedObject.asBodyParameters()
     
     let request = NetworkRequest<PlaceholderResponse>(method: .post, endpoint: "www.google.com", parameters: parameters)
     let urlRequest = try request.asURLRequest()
-    
-    guard let body = urlRequest.httpBody else {
-      XCTFail("urlRequest has no `httpBody`")
-      return
-    }
+    let body = try XCTUnwrap(urlRequest.httpBody)
 
     let sut = try JSONDecoder().decode(POSTBody.self, from: body)
      
