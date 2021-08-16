@@ -1,0 +1,25 @@
+name: Documentation (SwiftDoc)
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - .github/workflows/documentation.yml
+      - Sources/MGENetwork/**.swift
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Generate Documentation
+        uses: SwiftDocOrg/swift-doc@master
+        with:
+          inputs: "Sources/MGENetwork"
+          output: "Documentation"
+          module-name: "MGENetwork"
+          format: html
