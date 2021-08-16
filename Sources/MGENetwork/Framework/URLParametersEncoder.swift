@@ -6,7 +6,7 @@ import Foundation
 
 /// The `ParameterEncoder` for performing the encoding of query parameters for a `URLRequest`.
 public enum URLParametersEncoder: ParameterEncoder {
-  public static func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
+  public static func encode(urlRequest: inout URLRequest, with parameters: [String: Any]) throws {
     defer {
       urlRequest.addingDefaultHeadersIfMissing()
     }

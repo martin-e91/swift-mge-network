@@ -4,7 +4,7 @@
 
 import Foundation
 
-/// Mocks responses from the network.
+/// Collects all the mock responses from the network.
 public final class MockURLProtocol: URLProtocol {
   /// The errors that may occur with the mocked network requests.
   public enum MockNetworkRequestError: Error {

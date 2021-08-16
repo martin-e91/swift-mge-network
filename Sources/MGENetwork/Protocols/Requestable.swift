@@ -41,7 +41,7 @@ public extension Requestable {
   }
   
   var parameters: Parameters {
-    [:]
+    .query(parameters: [:])
   }
   
   var description: String {

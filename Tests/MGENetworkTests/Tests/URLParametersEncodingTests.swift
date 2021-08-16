@@ -15,7 +15,7 @@ final class URLParametersEncoderTests: XCTestCase {
   
   let networkProvider: NetworkProvider = NetworkClient(with: MockNetworkProviderConfiguration())
   
-  func test_BuildingRequestWithQueryItems() {
+  func testBuildingRequestWithQueryItems() {
     guard
       let domain = "https://postman-echo.com/get".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
       let url = URLComponents(string: domain)?.url
@@ -44,7 +44,7 @@ final class URLParametersEncoderTests: XCTestCase {
     XCTAssertTrue(isFirstCaseTrue || isSecondCaseTrue)
   }
   
-  func test_QueryParametersCorrectness() {
+  func testQueryParametersCorrectness() {
     guard let url = URL(string: "www.google.com") else {
       XCTFail()
       return
@@ -66,11 +66,11 @@ final class URLParametersEncoderTests: XCTestCase {
     XCTAssertEqual(parameters["foo2"], expectedComponents?.queryItems?.first(where: { $0.name == "foo2" })?.value)
   }
   
-  func test_GETRequestWithQueryItems() {
+  func testGETRequestWithQueryItems() {
     let request = NetworkRequest<Response>(
       method: .get,
       endpoint: "https://postman-echo.com/get",
-      parameters: ["foo1": "bar1", "foo2": "bar2"]
+      parameters: ["foo1": "bar1", "foo2": "bar2"].asQueryParameters
     )
     
     let expectation = self.expectation(description: "Response received")
@@ -96,7 +96,7 @@ final class URLParametersEncoderTests: XCTestCase {
     wait(for: [expectation], timeout: 8)
   }
   
-  func test_emptyQueryParameters() {
+  func testEmptyQueryParameters() {
     let endpoint = "https://postman-echo.com/get"
     let request = NetworkRequest<PlaceholderResponse>(method: .get, endpoint: endpoint)
     

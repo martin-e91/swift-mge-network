@@ -21,7 +21,7 @@ public struct NetworkRequest<Response>: Requestable where Response: Decodable {
     endpoint: Endpoint,
     defaultHeaders: HTTPHeaders = ["Accept": "application/json", "Content-Type": "application/json"],
     additionalHeaders: HTTPHeaders = [:],
-    parameters: Parameters = [:]
+    parameters: Parameters = .query(parameters: [:])
   ) {
     self.method = method
     self.endpoint = endpoint
@@ -51,11 +51,11 @@ public struct NetworkRequest<Response>: Requestable where Response: Decodable {
   
   private func addParameters(to request: inout URLRequest) throws {
     do {
-      switch method {
-      case .get:
+      switch parameters {
+      case let .query(parameters):
         try URLParametersEncoder.encode(urlRequest: &request, with: parameters)
         
-      case .post, .put, .patch:
+      case let .body(parameters):
         try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
         
       default:

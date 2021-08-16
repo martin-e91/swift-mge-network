@@ -63,7 +63,7 @@ final class RequestTests: XCTestCase {
   }
   
   func test_POSTRequest() {
-    let request = NetworkRequest<Response>(method: .post, endpoint: "https://postman-echo.com/post", parameters: ["message": "Ciao Postman 👋🏾"])
+    let request = NetworkRequest<Response>(method: .post, endpoint: "https://postman-echo.com/post", parameters: .body(parameters: ["message": "Ciao Postman 👋🏾"]))
     
     let expectation = XCTestExpectation(description: "Successful POST Request")
     
@@ -91,28 +91,20 @@ final class RequestTests: XCTestCase {
     XCTAssertNil(urlRequest.httpBody, "Body must be nil for GET requests")
   }
   
-  func test_BodyParametersEncoding() {
+  func test_BodyParametersEncoding() throws {
     let expectedObject = POSTBody(message: "hello")
     
-    guard let parameters = try? expectedObject.asDictionary() else {
-      XCTFail()
-      return
-    }
+    let parameters = try expectedObject.asBodyParameters()
     
-    let request = NetworkRequest<PlaceholderResponse>(
-      method: .post,
-      endpoint: "www.google.com",
-      parameters: parameters
-    )
-  
-    guard
-      let urlRequest = try? request.asURLRequest(),
-      let body = urlRequest.httpBody,
-      let sut = try? JSONDecoder().decode(POSTBody.self, from: body)
-    else {
-      XCTFail()
+    let request = NetworkRequest<PlaceholderResponse>(method: .post, endpoint: "www.google.com", parameters: parameters)
+    let urlRequest = try request.asURLRequest()
+    
+    guard let body = urlRequest.httpBody else {
+      XCTFail("urlRequest has no `httpBody`")
       return
     }
+
+    let sut = try JSONDecoder().decode(POSTBody.self, from: body)
      
     XCTAssertEqual(sut, expectedObject)
   }

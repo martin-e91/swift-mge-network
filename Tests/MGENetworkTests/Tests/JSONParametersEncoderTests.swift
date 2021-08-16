@@ -10,7 +10,7 @@ final class JSONParametersEncoderTests: XCTestCase {
     let field: String
   }
 
-  func test_bodyParametersEncoding() {
+  func testBodyParametersEncoding() {
     let expectedObject = CodableStruct(field: "hello world!")
     
     var urlRequest = URLRequest(url: URL(string: "www.google.com")!)

@@ -8,7 +8,7 @@ import Foundation
 public protocol ParameterEncoder {
   /// Encodes the given parameters adding them to the given `URLRequest` instance.
   /// - Parameters:
-  ///   - urlRequest: the `URLRequest` to which parameters are going to be added.
-  ///   - parameters: parameters to add to the request.
-  static func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
+  ///   - urlRequest: The `URLRequest` to which parameters are going to be added.
+  ///   - parameters: The parameters to be added to the request.
+  static func encode(urlRequest: inout URLRequest, with parameters: [String: Any]) throws
 }

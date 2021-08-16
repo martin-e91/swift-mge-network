@@ -15,7 +15,7 @@ extension String: Endpoint {
   }
 
   public var path: Path {
-    split(separator: "/").dropFirst().map(String.init)
+    split(separator: "/").dropFirst().map { String($0) }
   }
   
   public func asURL() throws -> URL {
