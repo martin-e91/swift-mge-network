@@ -15,18 +15,22 @@ public struct NetworkRequest<Response>: Requestable where Response: Decodable {
   public let headers: HTTPHeaders
   
   public let parameters: Parameters
+  
+  public let timeoutInterval: TimeInterval
 
   public init(
     method: HTTPMethod,
     endpoint: Endpoint,
     defaultHeaders: HTTPHeaders = ["Accept": "application/json", "Content-Type": "application/json"],
     additionalHeaders: HTTPHeaders = [:],
-    parameters: Parameters = .query(parameters: [:])
+    parameters: Parameters = .query(parameters: [:]),
+    timeoutInterval: TimeInterval = 30
   ) {
     self.method = method
     self.endpoint = endpoint
     self.headers = defaultHeaders.merging(additionalHeaders) { $1 }
     self.parameters = parameters
+    self.timeoutInterval = timeoutInterval
   }
   
   /// Creates a simple get request for the given urlString.
@@ -43,26 +47,14 @@ public struct NetworkRequest<Response>: Requestable where Response: Decodable {
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = method.rawValue
     urlRequest.allHTTPHeaderFields = headers
+    urlRequest.timeoutInterval = timeoutInterval
     
-    try addParameters(to: &urlRequest)
-    
-    return urlRequest
-  }
-  
-  private func addParameters(to request: inout URLRequest) throws {
     do {
-      switch parameters {
-      case let .query(parameters):
-        try URLParametersEncoder.encode(urlRequest: &request, with: parameters)
-        
-      case let .body(parameters):
-        try JSONParameterEncoder.encode(urlRequest: &request, with: parameters)
-        
-      default:
-        break
-      }
+      try HTTPParametersEncoder.encode(urlRequest: &urlRequest, with: parameters)
     } catch {
       throw NetworkError.encodingFailure
     }
+    
+    return urlRequest
   }
 }

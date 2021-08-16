@@ -8,7 +8,7 @@ import Foundation
 public protocol Requestable: CustomStringConvertible {
   /// Type of the response associated with this `Requestable`.
   associatedtype ResponseType: Decodable
-
+  
   /// The endpoint of this request.
   var endpoint: Endpoint { get }
   
@@ -22,6 +22,10 @@ public protocol Requestable: CustomStringConvertible {
   /// - Note: for a `GET` request they are going to be encoded as url parameters.
   /// For a `POST`, `PUT` or `PATCH` request they're going to be send as body parameters.
   var parameters: Parameters { get }
+  
+  /// The timeout interval of the request.
+  /// Default value is `30`.
+  var timeoutInterval: TimeInterval { get }
   
   /// Converts this request to an `URLRequest`.
   /// - Throws: An error while building the `URL` object.
@@ -42,6 +46,10 @@ public extension Requestable {
   
   var parameters: Parameters {
     .query(parameters: [:])
+  }
+  
+  var timeoutInterval: TimeInterval {
+    30
   }
   
   var description: String {
