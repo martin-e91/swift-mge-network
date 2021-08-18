@@ -1,18 +1,23 @@
-name: Swift
+name: Build & Test
 
 on:
   push:
-    branches: [ master ]
+    branches:
+    - master
+    - develop
   pull_request:
-    branches: [ master ]
+    branches:
+      - '*'
 
 jobs:
   build:
-
-    runs-on: macos-11.5
-
+    
+    runs-on: macos-latest
+    
     steps:
     - uses: actions/checkout@v2
+    - name: Clean
+      run: swift package clean
     - name: Build
       run: swift build -v
     - name: Run tests

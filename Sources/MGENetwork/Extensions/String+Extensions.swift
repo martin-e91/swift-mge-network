@@ -1,9 +1,5 @@
 //
-//  ConcreteEndpoint.swift
-//  NetworkLayer
-//
-//  Created by Martin Essuman on 23/08/2020.
-//  Copyright © 2020 Martino Godswill Essuman. All rights reserved.
+//  MGENetwork
 //
 
 import Foundation
@@ -19,7 +15,7 @@ extension String: Endpoint {
   }
 
   public var path: Path {
-    split(separator: "/").dropFirst().map(String.init)
+    split(separator: "/").dropFirst().map { String($0) }
   }
   
   public func asURL() throws -> URL {

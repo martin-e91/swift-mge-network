@@ -1,9 +1,5 @@
 //
-//  DataTaskOperation.swift
-//  NetworkLayer
-//
-//  Created by Martin Essuman on 25/04/2020.
-//  Copyright © 2020 Martino Godswill Essuman. All rights reserved.
+//  MGENetwork
 //
 
 import Foundation
@@ -30,7 +26,6 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
   
   public override func execute() {
     guard let urlRequest = try? request.asURLRequest() else {
-      Log.error(title: "Invalid URL", message: NetworkError.invalidURL.message)
       finish(with: .invalidURL)
       return
     }
@@ -47,14 +42,9 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
         self.finish(with: .generic(error))
       }
      
-      Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON ?? "")
+      Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON?.string ?? "")
       
-      guard
-        let body = data,
-        let decodedData = try? self.decode(body),
-        let response = response as? HTTPURLResponse
-      else {
-        Log.error(title: "Invalid data", message: NetworkError.invalidData.message)
+      guard let body = data, let decodedData = try? self.decode(body), let response = response as? HTTPURLResponse else {
         self.finish(with: .invalidData)
         return
       }
@@ -66,10 +56,11 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
             
       let networkResponse = NetworkResponse(body: decodedData, request: urlRequest, httpResponse: response)
       
-      Log.debug(title: "DECODED RESPONSE", message: networkResponse)
+      Log.debug(title: "DECODED RESPONSE", message: networkResponse.description)
       
       self.finish(with: networkResponse.body)
     }
+
     task.resume()
   }
   
