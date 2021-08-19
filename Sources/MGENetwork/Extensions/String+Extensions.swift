@@ -6,16 +6,25 @@ import Foundation
 
 extension String: Endpoint {
   public var baseURL: String {
-    guard let baseURL = split(separator: "/").first else {
-      Log.warning(title: "Failed creating `baseURL` from string:", message: "\(self)")
+    guard let url = URL(string: prependingHTTPSProtocol) else {
+      Log.warning(title: "Failed creating `baseURL` from string:", message: self)
       return ""
     }
     
-    return String(baseURL)
+    guard let scheme = url.scheme, let host = url.host else {
+      Log.warning(title: "Failed creating `baseURL` from string:", message: self)
+      return ""
+    }
+    
+    return "\(scheme)://\(host)"
   }
 
   public var path: Path {
-    split(separator: "/").dropFirst().map { String($0) }
+    guard let url = URL(string: prependingHTTPSProtocol) else {
+      return []
+    }
+    
+    return url.path.split(separator: "/").map { String($0) }
   }
   
   public func asURL() throws -> URL {
@@ -24,5 +33,19 @@ extension String: Endpoint {
     }
     
     return url
+  }
+}
+
+// MARK: - Private Helpers
+
+private extension String {
+  /// The string value of the `HTTPS` protocol.
+  private static var httpsProtocol: String {
+    "https://"
+  }
+  
+  /// The string with `httpsProtocol` prepended.
+  private var prependingHTTPSProtocol: String {
+    hasPrefix(String.httpsProtocol) ? self : String.httpsProtocol + self
   }
 }
