@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Data Extension Reference</title>
+    <title>MockNetworkExchange Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Data" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/MockNetworkExchange" class="dashAnchor"></a>
 
-    <a title="Data Extension Reference"></a>
+    <a title="MockNetworkExchange Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">MGENetwork Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Data Extension Reference
+      MockNetworkExchange Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -167,15 +167,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Data</h1>
+            <h1>MockNetworkExchange</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Data</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MockNetworkExchange</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Associates an <code>URLRequest</code> to a <code><a href="../Structs/MockResponse.html">MockResponse</a></code>.</p>
+
           </div>
         </section>
 
@@ -186,9 +187,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10Foundation4DataV10MGENetworkE17prettyPrintedJSONSo8NSStringCSgvp"></a>
-                    <a name="//apple_ref/swift/Property/prettyPrintedJSON" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10Foundation4DataV10MGENetworkE17prettyPrintedJSONSo8NSStringCSgvp">prettyPrintedJSON</a>
+                    <a name="/s:10MGENetwork19MockNetworkExchangeV10urlRequest10Foundation10URLRequestVvp"></a>
+                    <a name="//apple_ref/swift/Property/urlRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10MGENetwork19MockNetworkExchangeV10urlRequest10Foundation10URLRequestVvp">urlRequest</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -196,14 +197,95 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the <code>JSON</code> string representation of this Data instance.</p>
+                        <p>The <code>URLRequest</code> associated to the request.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">prettyPrintedJSON</span><span class="p">:</span> <span class="kt">NSString</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10MGENetwork19MockNetworkExchangeV8responseAA0B8ResponseVvp"></a>
+                    <a name="//apple_ref/swift/Property/response" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10MGENetwork19MockNetworkExchangeV8responseAA0B8ResponseVvp">response</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The mocked response associated to the <code><a href="../Structs/MockNetworkExchange.html#/s:10MGENetwork19MockNetworkExchangeV10urlRequest10Foundation10URLRequestVvp">urlRequest</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">response</span><span class="p">:</span> <span class="kt"><a href="../Structs/MockResponse.html">MockResponse</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10MGENetwork19MockNetworkExchangeV11urlResponseSo17NSHTTPURLResponseCvp"></a>
+                    <a name="//apple_ref/swift/Property/urlResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10MGENetwork19MockNetworkExchangeV11urlResponseSo17NSHTTPURLResponseCvp">urlResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The expected <code>HTTPURLResponse</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">urlResponse</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10MGENetwork19MockNetworkExchangeV10urlRequest8responseAC10Foundation10URLRequestV_AA0B8ResponseVtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(urlRequest:response:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10MGENetwork19MockNetworkExchangeV10urlRequest8responseAC10Foundation10URLRequestV_AA0B8ResponseVtcfc">init(urlRequest:<wbr>response:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt"><a href="../Structs/MockResponse.html">MockResponse</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

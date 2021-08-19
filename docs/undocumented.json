@@ -1,51 +1,79 @@
 {
   "warnings": [
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Common/HTTPMethod.swift",
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 9,
       "symbol": "HTTPMethod.put",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Common/HTTPMethod.swift",
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 10,
       "symbol": "HTTPMethod.get",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Common/HTTPMethod.swift",
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 11,
       "symbol": "HTTPMethod.post",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Common/HTTPMethod.swift",
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 12,
       "symbol": "HTTPMethod.head",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Common/HTTPMethod.swift",
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 13,
       "symbol": "HTTPMethod.delete",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Common/HTTPMethod.swift",
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 14,
       "symbol": "HTTPMethod.patch",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Common/NetworkRequest.swift",
-      "line": 19,
-      "symbol": "NetworkRequest.init(method:endpoint:defaultHeaders:additionalHeaders:parameters:)",
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockNetworkExchange.swift",
+      "line": 26,
+      "symbol": "MockNetworkExchange.init(urlRequest:response:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "line": 26,
+      "symbol": "MockURLProtocol.canInit(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "line": 30,
+      "symbol": "MockURLProtocol.canonicalRequest(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "line": 40,
+      "symbol": "MockURLProtocol.startLoading()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "line": 63,
+      "symbol": "MockURLProtocol.stopLoading()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
