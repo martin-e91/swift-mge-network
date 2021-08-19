@@ -10,7 +10,7 @@ extension String: Endpoint {
       Log.warning(title: "Failed creating `baseURL` from string:", message: self)
       return ""
     }
-    
+
     guard let scheme = url.scheme, let host = url.host else {
       Log.warning(title: "Failed creating `baseURL` from string:", message: self)
       return ""
