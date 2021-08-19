@@ -81,7 +81,7 @@ networkClient.perform(request) { [weak self] result in
 
 ## Documentation
 
-You can find the complete documentation [here](https://martin-e91.github.io/MGENetwork/docs)
+You can find the complete documentation [here](https://martin-e91.github.io/MGENetwork)
 
 ## Contributing 
 
