@@ -8,7 +8,6 @@ import Foundation
 /// Performs a `NetworkRequest` a completion upon its task termination.
 public final class DataTaskOperation<RequestType, DataType>: CompletionOperation<DataType, NetworkError>
 where RequestType: Requestable, RequestType.ResponseType == DataType {
-  
   /// The session used by this operation.
   private let session: URLSession
   
