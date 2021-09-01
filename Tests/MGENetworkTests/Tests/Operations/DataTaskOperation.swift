@@ -30,7 +30,7 @@ final class DataTaskOperationTests: XCTestCase {
     
     let operation = DataTaskOperation<MockRequestable, Bool>(session: session, request: MockRequestable())
     
-    let expectation = expectation(description: "the mock request shall be performed")
+    let expectation = XCTestExpectation(description: "the mock request shall be performed")
     
     operation.completion = { result in
       switch result {
@@ -43,7 +43,7 @@ final class DataTaskOperationTests: XCTestCase {
       }
     }
     
-    executeAndWaitForExpectations {
+    waitForExpectation(expectation) {
       operation.start()
     }
   }

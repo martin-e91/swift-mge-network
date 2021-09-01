@@ -10,7 +10,7 @@ final class CompletionOperationTests: XCTestCase {
   func testCompletionExecutedWhenFinishingWithSuccess() {
     let operation = CompletionOperation<Bool, NSError>()
 
-    let expectation = expectation(description: "completion of the `CompletionOperation` must be called.")
+    let expectation = XCTestExpectation(description: "completion of the `CompletionOperation` must be called.")
 
     operation.completion = { result in
       switch result {
@@ -23,7 +23,7 @@ final class CompletionOperationTests: XCTestCase {
       }
     }
 
-    executeAndWaitForExpectations {
+    waitForExpectation(expectation) {
       operation.finish(with: true)
     }
   }
@@ -31,7 +31,7 @@ final class CompletionOperationTests: XCTestCase {
   func testCompletionExecutedWhenFinishingWithFailure() {
     let operation = CompletionOperation<Bool, NSError>()
 
-    let expectation = expectation(description: "completion of the `CompletionOperation` must be called.")
+    let expectation = XCTestExpectation(description: "completion of the `CompletionOperation` must be called.")
 
     operation.completion = { result in
       switch result {
@@ -44,7 +44,7 @@ final class CompletionOperationTests: XCTestCase {
       }
     }
 
-    executeAndWaitForExpectations {
+    waitForExpectation(expectation) {
       operation.finish(with: NSError(domain: #function, code: -22, userInfo: nil))
     }
   }
