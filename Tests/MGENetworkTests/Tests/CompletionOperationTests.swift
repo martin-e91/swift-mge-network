@@ -23,11 +23,9 @@ final class CompletionOperationTests: XCTestCase {
       }
     }
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+    executeAndWaitForExpectations {
       operation.finish(with: true)
     }
-    
-    waitForExpectations(timeout: 1, handler: nil)
   }
   
   func testCompletionExecutedWhenFinishingWithFailure() {
@@ -46,10 +44,8 @@ final class CompletionOperationTests: XCTestCase {
       }
     }
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+    executeAndWaitForExpectations {
       operation.finish(with: NSError(domain: #function, code: -22, userInfo: nil))
     }
-    
-    waitForExpectations(timeout: 1, handler: nil)
   }
 }
