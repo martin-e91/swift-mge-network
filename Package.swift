@@ -16,8 +16,6 @@ let package = Package(
   ],
   targets: [
     .target(name: "MGENetwork", dependencies: ["MGELogger"], exclude: ["docs", "iOS Example", "generate_doc.sh"]),
-    .testTarget(
-      name: "MGENetworkTests",
-      dependencies: ["MGENetwork"]),
+    .testTarget(name: "MGENetworkTests", dependencies: ["MGENetwork"]),
   ]
 )
