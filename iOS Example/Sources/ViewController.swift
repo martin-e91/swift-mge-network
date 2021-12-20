@@ -100,25 +100,6 @@ class ViewController: UIViewController {
       }
       .store(in: &subscriptions)
     return
-    
-    
-    //    networkClient.perform(Requests.randomFact.make()) { [weak self] result in
-    //      defer {
-    //        self?.hideHud()
-    //      }
-    //
-    //      guard let self = self else {
-    //        return
-    //      }
-    //
-    //      switch result {
-    //      case .failure(let error):
-    //        self.showDialog(with: error)
-    //
-    //      case .success(let fact):
-    //        self.handle(fact: fact)
-    //      }
-    //    }
   }
   
   private func downloadImage(from urlString: String, completion: @escaping (Data?) -> Void) {
