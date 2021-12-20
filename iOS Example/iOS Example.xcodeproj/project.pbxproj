@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B9F9610277121D700F93F54 /* MGENetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 5B9F960F277121D700F93F54 /* MGENetwork */; };
 		D9A12776235699C600D136A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12775235699C600D136A5 /* AppDelegate.swift */; };
 		D9A12778235699C600D136A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12777235699C600D136A5 /* SceneDelegate.swift */; };
 		D9A1277A235699C600D136A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12779235699C600D136A5 /* ViewController.swift */; };
@@ -37,15 +38,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9A1278B2356A25E00D136A5 /* MGENetwork in Frameworks */,
+				5B9F9610277121D700F93F54 /* MGENetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B9F960B277120D700F93F54 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		D9A12769235699C600D136A5 = {
 			isa = PBXGroup;
 			children = (
+				5B9F960B277120D700F93F54 /* Packages */,
 				D9A12774235699C600D136A5 /* Sources */,
 				D9A12773235699C600D136A5 /* Products */,
 				D9A127892356A25E00D136A5 /* Frameworks */,
@@ -117,6 +127,7 @@
 			name = "iOS Example";
 			packageProductDependencies = (
 				D9A1278A2356A25E00D136A5 /* MGENetwork */,
+				5B9F960F277121D700F93F54 /* MGENetwork */,
 			);
 			productName = "iOS Example";
 			productReference = D9A12772235699C600D136A5 /* iOS Example.app */;
@@ -146,6 +157,9 @@
 				Base,
 			);
 			mainGroup = D9A12769235699C600D136A5;
+			packageReferences = (
+				5B9F960E277121D700F93F54 /* XCRemoteSwiftPackageReference "MGENetwork" */,
+			);
 			productRefGroup = D9A12773235699C600D136A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -376,7 +390,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		5B9F960E277121D700F93F54 /* XCRemoteSwiftPackageReference "MGENetwork" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:martin-e91/MGENetwork.git";
+			requirement = {
+				branch = release/0.5.0;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		5B9F960F277121D700F93F54 /* MGENetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B9F960E277121D700F93F54 /* XCRemoteSwiftPackageReference "MGENetwork" */;
+			productName = MGENetwork;
+		};
 		D9A1278A2356A25E00D136A5 /* MGENetwork */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MGENetwork;
