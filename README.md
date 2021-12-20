@@ -21,7 +21,7 @@ Requires iOS 9.0.
 ## Installation
 
 Add this to your project using Swift Package Manager. 
-In Xcode that is simply: 'File > Swift Packages > Add Package Dependency...', paste the link to this repo and you're done.
+In Xcode that is simply: 'File > Swift Packages > Add Package Dependency...', paste `https://martin-e91.github.io/swift-mge-network/` and you're done.
 
 
 ## Usage
@@ -81,11 +81,11 @@ networkClient.perform(request) { [weak self] result in
 
 ## Documentation
 
-You can find the complete documentation [here](https://martin-e91.github.io/MGENetwork)
+You can find the complete documentation [here](https://martin-e91.github.io/swift-mge-network/)
 
 ## Contributing 
 
-Feel free to give your contribution or open a <a href="https://github.com/martin-e91/MGENetwork/issues/new/choose">new issue</a>! 😄
+Feel free to give your contribution or open a <a href="https://github.com/martin-e91/swift-mge-network/issues/new/choose">new issue</a>! 😄
 
 
 ## Author
