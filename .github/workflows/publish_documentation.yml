@@ -12,7 +12,7 @@ on:
 jobs: 
     
     publish:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       – uses: actions/checkout@v2
       – name: Publish Jazzy Docs
