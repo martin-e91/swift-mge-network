@@ -13,12 +13,14 @@ jobs:
   build:
     
     runs-on: macos-latest
-    
+
     steps:
     - uses: actions/checkout@v2
     - name: Clean
       run: swift package clean
-    - name: Build
+    - name: Build for MacOS
       run: swift build -v
-    - name: Run tests
+    - name: Build for iOS
+      run: swift build -v -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios13.0-simulator"
+    - name: Run MacOS tests
       run: swift test -v
