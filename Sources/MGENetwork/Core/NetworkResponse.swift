@@ -19,10 +19,7 @@ internal struct NetworkResponse<BodyType> where BodyType: Decodable {
 extension NetworkResponse: CustomStringConvertible {
   /// Descriptive string for this response including the `URL` and `HTTPMethod` of the associated `request`.
   var description: String {
-    guard
-      let url = request.url,
-      let method = request.httpMethod
-    else {
+    guard let url = request.url, let method = request.httpMethod else {
       return "Failed description for this response."
     }
     

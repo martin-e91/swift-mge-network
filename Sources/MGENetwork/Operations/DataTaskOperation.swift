@@ -8,7 +8,6 @@ import Foundation
 /// Performs a `NetworkRequest` a completion upon its task termination.
 public final class DataTaskOperation<RequestType, DataType>: CompletionOperation<DataType, NetworkError>
 where RequestType: Requestable, RequestType.ResponseType == DataType {
-  
   /// The session used by this operation.
   private let session: URLSession
   
@@ -24,6 +23,7 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
     self.request = request
   }
   
+  /// Performs the `request` against the network using the given `session`.
   public override func execute() {
     guard let urlRequest = try? request.asURLRequest() else {
       finish(with: .invalidURL)
@@ -41,10 +41,10 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
         Log.error(title: "An error occurred", message: "\(error.localizedDescription)")
         self.finish(with: .generic(error))
       }
-     
+
       Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON?.string ?? "")
       
-      guard let body = data, let decodedData = try? self.decode(body), let response = response as? HTTPURLResponse else {
+      guard let body = data, let decodedData = self.decode(body), let response = response as? HTTPURLResponse else {
         self.finish(with: .invalidData)
         return
       }
@@ -89,11 +89,12 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
     }
   }
   
-  private func decode(_ data: Data) throws -> DataType? {
-    let decoder = JSONDecoder()
-    
+  /// Tries decoding the given data into a `DataType`.
+  /// - Parameter data: The raw data to be decoded.
+  /// - Returns: The decoded data type upon success, `nil` elsewhere.
+  private func decode(_ data: Data) -> DataType? {
     do {
-      let decodedData = try decoder.decode(DataType.self, from: data)
+      let decodedData = try JSONDecoder().decode(DataType.self, from: data)
       return decodedData
     } catch DecodingError.keyNotFound(let key, let context) {
       Log.debug(
@@ -110,6 +111,7 @@ where RequestType: Requestable, RequestType.ResponseType == DataType {
     } catch let error {
       Log.debug(title: "Couldn't decode '\(DataType.self)'", message: "\(error.localizedDescription)")
     }
+
     return nil
   }
 }

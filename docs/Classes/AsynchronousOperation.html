@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>BaseOperation Class Reference</title>
+    <title>AsynchronousOperation Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,27 +14,27 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Class/BaseOperation" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/AsynchronousOperation" class="dashAnchor"></a>
 
-    <a title="BaseOperation Class Reference"></a>
+    <a title="AsynchronousOperation Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
           MGENetwork Docs
         </a>
-         (77% documented)
+         (84% documented)
       </p>
     
-      <p class="header-col--secondary">
+      <div class="header-col--secondary">
         <form role="search" action="../search.json">
           <input type="text" placeholder="Search documentation" data-typeahead>
         </form>
-      </p>
+      </div>
     
         <p class="header-col header-col--secondary">
           <a class="header-link" href="https://github.com/martin-e91/MGENetwork/docs">
-            <img class="header-icon" src="../img/gh.png"/>
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
             View on GitHub
           </a>
         </p>
@@ -43,8 +43,8 @@
 
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">MGENetwork Reference</a>
-      <img class="carat" src="../img/carat.png" />
-      BaseOperation Class Reference
+      <img class="carat" src="../img/carat.png" alt=""/>
+      AsynchronousOperation Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -54,10 +54,7 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/BaseOperation.html">BaseOperation</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/BaseOperation/State.html">– State</a>
+                <a class="nav-group-task-link" href="../Classes/AsynchronousOperation.html">AsynchronousOperation</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/CompletionOperation.html">CompletionOperation</a>
@@ -167,11 +164,11 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>BaseOperation</h1>
+            <h1>AsynchronousOperation</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">BaseOperation</span> <span class="p">:</span> <span class="kt">Operation</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">AsynchronousOperation</span> <span class="p">:</span> <span class="kt">Operation</span></code></pre>
 
                 </div>
               </div>
@@ -183,13 +180,22 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Computed%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Computed Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Computed%20Properties"></a>
+                  <h3 class="section-name"><span>Computed Properties</span>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(py)asynchronous"></a>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)asynchronous"></a>
                     <a name="//apple_ref/swift/Property/isAsynchronous" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(py)asynchronous">isAsynchronous</a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)asynchronous">isAsynchronous</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -214,63 +220,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(py)executing"></a>
-                    <a name="//apple_ref/swift/Property/isExecuting" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(py)executing">isExecuting</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">isExecuting</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(py)ready"></a>
-                    <a name="//apple_ref/swift/Property/isReady" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(py)ready">isReady</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">isReady</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(py)cancelled"></a>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)cancelled"></a>
                     <a name="//apple_ref/swift/Property/isCancelled" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(py)cancelled">isCancelled</a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)cancelled">isCancelled</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -295,9 +247,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(py)finished"></a>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)finished"></a>
                     <a name="//apple_ref/swift/Property/isFinished" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(py)finished">isFinished</a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)finished">isFinished</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -322,9 +274,76 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(im)start"></a>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)executing"></a>
+                    <a name="//apple_ref/swift/Property/isExecuting" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)executing">isExecuting</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">isExecuting</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)ready"></a>
+                    <a name="//apple_ref/swift/Property/isReady" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)ready">isReady</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">isReady</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Functions"></a>
+                <a name="//apple_ref/swift/Section/Functions" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Functions"></a>
+                  <h3 class="section-name"><span>Functions</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(im)start"></a>
                     <a name="//apple_ref/swift/Method/start()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(im)start">start()</a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(im)start">start()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -349,9 +368,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(im)main"></a>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(im)main"></a>
                     <a name="//apple_ref/swift/Method/main()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(im)main">main()</a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(im)main">main()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -376,9 +395,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@MGENetwork@objc(cs)BaseOperation(im)cancel"></a>
+                    <a name="/c:@M@MGENetwork@objc(cs)AsynchronousOperation(im)cancel"></a>
                     <a name="//apple_ref/swift/Method/cancel()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)BaseOperation(im)cancel">cancel()</a>
+                    <a class="token" href="#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(im)cancel">cancel()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -403,9 +422,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10MGENetwork13BaseOperationC7executeyyF"></a>
+                    <a name="/s:10MGENetwork21AsynchronousOperationC7executeyyF"></a>
                     <a name="//apple_ref/swift/Method/execute()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10MGENetwork13BaseOperationC7executeyyF">execute()</a>
+                    <a class="token" href="#/s:10MGENetwork21AsynchronousOperationC7executeyyF">execute()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -413,7 +432,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Executes the <code>AsynchronousOperation</code>.
+Override this method for specifying the task that the operation will execute.
+The base implementation does nothing and sets the operation in the <code><a href="../Classes/AsynchronousOperation.html#/c:@M@MGENetwork@objc(cs)AsynchronousOperation(py)finished">isFinished</a></code> state.</p>
 
                       </div>
                       <div class="declaration">
@@ -421,34 +442,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:10MGENetwork13BaseOperationC5StateO"></a>
-                    <a name="//apple_ref/swift/Enum/State" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10MGENetwork13BaseOperationC5StateO">State</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="../Classes/BaseOperation/State.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">State</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -463,9 +456,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="http://github.com/martin-e91.com" target="_blank" rel="noopener" rel="external">Martin Essuman</a>. All rights reserved. (Last updated: 2021-08-19)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+      <p>&copy; 2021 <a class="link" href="http://github.com/martin-e91.com" target="_blank" rel="external noopener">Martin Essuman</a>. All rights reserved. (Last updated: 2021-12-20)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
-</div>
 </html>
