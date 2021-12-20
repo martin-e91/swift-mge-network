@@ -1,6 +1,6 @@
 # MGENetwork
 
-[![Build & Test](https://github.com/martin-e91/MGENetwork/actions/workflows/swift.yml/badge.svg?branch=master)](https://github.com/martin-e91/MGENetwork/actions/workflows/swift.yml)
+[![Build & Test](https://github.com/martin-e91/swift-mge-network/actions/workflows/CI.yml/badge.svg)](https://github.com/martin-e91/swift-mge-network/actions/workflows/CI.yml)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/martin-e91/MGENetwork)
 [![License](https://img.shields.io/github/license/martin-e91/MGENetwork)](LICENSE)
 
