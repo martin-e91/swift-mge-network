@@ -1,173 +1,152 @@
 {
   "warnings": [
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 9,
       "symbol": "HTTPMethod.put",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 10,
       "symbol": "HTTPMethod.get",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 11,
       "symbol": "HTTPMethod.post",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 12,
       "symbol": "HTTPMethod.head",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 13,
       "symbol": "HTTPMethod.delete",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Core/HTTPMethod.swift",
       "line": 14,
       "symbol": "HTTPMethod.patch",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockNetworkExchange.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Mock/MockNetworkExchange.swift",
       "line": 26,
       "symbol": "MockNetworkExchange.init(urlRequest:response:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
       "line": 26,
       "symbol": "MockURLProtocol.canInit(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
       "line": 30,
       "symbol": "MockURLProtocol.canonicalRequest(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
       "line": 40,
       "symbol": "MockURLProtocol.startLoading()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Mock/MockURLProtocol.swift",
       "line": 63,
       "symbol": "MockURLProtocol.stopLoading()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 61,
       "symbol": "AsynchronousOperation.isAsynchronous",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 65,
       "symbol": "AsynchronousOperation.isCancelled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 69,
       "symbol": "AsynchronousOperation.isFinished",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 73,
       "symbol": "AsynchronousOperation.isExecuting",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 77,
       "symbol": "AsynchronousOperation.isReady",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 83,
       "symbol": "AsynchronousOperation.start()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 92,
       "symbol": "AsynchronousOperation.main()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Operations/AsynchronousOperation.swift",
       "line": 101,
       "symbol": "AsynchronousOperation.cancel()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/CompletionOperation.swift",
-      "line": 9,
-      "symbol": "CompletionOperation.completion",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/CompletionOperation.swift",
-      "line": 11,
-      "symbol": "CompletionOperation.finish(with:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Operations/CompletionOperation.swift",
-      "line": 18,
-      "symbol": "CompletionOperation.finish(with:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Protocols/NetworkClientConfiguration.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Protocols/NetworkClientConfiguration.swift",
       "line": 8,
       "symbol": "NetworkClientConfiguration",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/martinoessuman/Developer/MGENetwork/Sources/MGENetwork/Protocols/NetworkClientConfiguration.swift",
+      "file": "/Users/martin/Developer/MGENetwork/Sources/MGENetwork/Protocols/NetworkClientConfiguration.swift",
       "line": 17,
       "symbol": "NetworkClientConfiguration",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/martinoessuman/Developer/MGENetwork"
+  "source_directory": "/Users/martin/Developer/MGENetwork"
 }
