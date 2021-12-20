@@ -15,7 +15,7 @@ let package = Package(
     .package(url: "https://github.com/martin-e91/MGELogger.git", .branch("develop"))
   ],
   targets: [
-    .target(name: "MGENetwork", dependencies: ["MGELogger"], exclude: ["docs", "iOS Example", "generate_doc.sh"]),
+    .target(name: "MGENetwork", dependencies: ["MGELogger"]),
     .testTarget(name: "MGENetworkTests", dependencies: ["MGENetwork"]),
   ]
 )
