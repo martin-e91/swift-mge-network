@@ -12,7 +12,7 @@ let package = Package(
     .library(name: "MGENetwork", targets: ["MGENetwork"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/martin-e91/MGELogger.git", .branch("develop"))
+    .package(url: "https://github.com/martin-e91/MGELogger.git", .exact("0.8.0"))
   ],
   targets: [
     .target(name: "MGENetwork", dependencies: ["MGELogger"]),
