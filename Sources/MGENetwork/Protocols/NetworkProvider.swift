@@ -6,7 +6,7 @@ import Foundation
 import Combine
 
 /// An entity providing ways of making requests against the network.
-public protocol NetworkProvider {
+public protocol NetworkProvider: OperationExecutor {
   /// Whether the logging is enabled or not. Default value is `true`.
   var isLoggingEnabled: Bool { get set }
 
@@ -40,6 +40,17 @@ public protocol NetworkProvider {
   @available(iOS 13.0, macOS 10.15, *)
   func download(from url: URL) -> Future<Data, NetworkError>
   
+  /// Creates a network request operation and returns it without executing.
+  ///
+  /// - Parameters:
+  ///   - request: The request the operation will execute.
+  ///   - completion: Completion block for handling result.
+  ///  - Returns: An `Operation` managing the network task of the request.
+  func networkOperation<R: Requestable, T>(
+    for request: R,
+    completion: @escaping Completion<T, NetworkError>
+  ) -> Operation where R.ResponseType == T
+
   /// Performs the given `request` against the network returning the `Operation` instance that manages it.
   /// - Parameters:
   ///   - request: The request to process.
