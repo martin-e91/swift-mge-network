@@ -7,7 +7,7 @@ import Combine
 import MGELogger
 
 /// A client for making network calls.
-public final class NetworkClient: NetworkProvider {
+public final class NetworkClient: NetworkProvider, OperationExecutor {
   /// The queue for network related operations.
   private lazy var queue = OperationQueue()
   
@@ -23,9 +23,8 @@ public final class NetworkClient: NetworkProvider {
   
   @discardableResult
   public func perform<R, T>(_ request: R, completion: @escaping Completion<T, NetworkError>) -> Operation where R : Requestable, T == R.ResponseType {
-    let operation = DataTaskOperation<R, T>(session: session, request: request)
-    operation.completion = completion
-    queue.addOperation(operation)
+    let operation = networkOperation(for: request, completion: completion)
+    execute(operation)
     return operation
   }
 
@@ -33,12 +32,22 @@ public final class NetworkClient: NetworkProvider {
   public func download(from urlString: String, completion: @escaping Completion<Data, NetworkError>) -> Operation {
     let operation = DownloadOperation(session: session, urlString: urlString)
     operation.completion = completion
-    queue.addOperation(operation)
+    execute(operation)
     return operation
   }
   
   public func download(from url: URL, completion: @escaping Completion<Data, NetworkError>) -> Operation {
     download(from: url.absoluteString, completion: completion)
+  }
+  
+  public func networkOperation<R, T>(for request: R, completion: @escaping Completion<T, NetworkError>) -> Operation where R : Requestable, T == R.ResponseType {
+    let operation = DataTaskOperation<R, R.ResponseType>(session: session, request: request)
+    operation.completion = completion
+    return operation
+  }
+  
+  public func execute(_ operation: Operation) {
+    queue.addOperation(operation)
   }
 }
 
