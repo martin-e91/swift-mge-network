@@ -22,7 +22,12 @@ public struct MockNetworkExchange: Hashable {
       headerFields: (urlRequest.allHTTPHeaderFields ?? [:]).merging(response.headers) { $1 }
     )!
   }
-
+  
+  /// Creates a new mock network exchange.
+  ///
+  /// - Parameters:
+  ///   - urlRequest: The `URLRequest` associated to the request.
+  ///   - response: The mocked response associated to the request.
   public init(urlRequest: URLRequest, response: MockResponse) {
     self.urlRequest = urlRequest
     self.response = response
