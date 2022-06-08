@@ -28,6 +28,25 @@ public final class NetworkClient: NetworkProvider, OperationExecutor {
     return operation
   }
 
+  @available(iOS 13.0, macOS 10.15, *)
+  public func perform<R, T>(_ request: R) async throws -> T where R : Requestable, T == R.ResponseType {
+    try await withCheckedThrowingContinuation { [weak self] continuation in
+      guard let self = self else {
+        return
+      }
+
+      self.perform(request) { result in
+        switch result {
+        case let .failure(error):
+          continuation.resume(throwing: error)
+          
+        case let .success(response):
+          continuation.resume(returning: response)
+        }
+      }
+    }
+  }
+
   @discardableResult
   public func download(from urlString: String, completion: @escaping Completion<Data, NetworkError>) -> Operation {
     let operation = DownloadOperation(session: session, urlString: urlString)

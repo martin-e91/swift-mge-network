@@ -64,6 +64,12 @@ public protocol NetworkProvider: OperationExecutor {
   /// - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
   @available(iOS 13.0, macOS 10.15, *)
   func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where R.ResponseType == T
+  
+  /// Performs the given `request` against the network asynchronously returning the result.
+  ///   - Parameter request: The request to process.
+  /// - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
+  @available(iOS 13.0, macOS 10.15, *)
+  func perform<R, T>(_ request: R) async throws -> T where R : Requestable, T == R.ResponseType
 }
 
 public extension NetworkProvider {
