@@ -40,6 +40,14 @@ public protocol NetworkProvider: OperationExecutor {
   @available(iOS 13.0, macOS 10.15, *)
   func download(from url: URL) -> Future<Data, NetworkError>
   
+  /// Downloads raw data from the given `url` returning the result asynchronously.
+  /// - Parameters:
+  ///   - url: The endpoint `URL` for the network task.
+  ///  - Returns: A `Future` resolving with either the decoded value or a `NetworkError`.
+  ///  - Throws: `NetworkError`.
+  @available(iOS 13.0, macOS 10.15, *)
+  func download(from url: URL) async throws -> Data
+  
   /// Creates a network request operation and returns it without executing.
   ///
   /// - Parameters:

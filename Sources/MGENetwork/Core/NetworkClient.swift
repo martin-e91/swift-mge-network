@@ -28,25 +28,6 @@ public final class NetworkClient: NetworkProvider, OperationExecutor {
     return operation
   }
 
-  @available(iOS 13.0, macOS 10.15, *)
-  public func perform<R, T>(_ request: R) async throws -> T where R : Requestable, T == R.ResponseType {
-    try await withCheckedThrowingContinuation { [weak self] continuation in
-      guard let self = self else {
-        return
-      }
-
-      self.perform(request) { result in
-        switch result {
-        case let .failure(error):
-          continuation.resume(throwing: error)
-          
-        case let .success(response):
-          continuation.resume(returning: response)
-        }
-      }
-    }
-  }
-
   @discardableResult
   public func download(from urlString: String, completion: @escaping Completion<Data, NetworkError>) -> Operation {
     let operation = DownloadOperation(session: session, urlString: urlString)
@@ -95,6 +76,26 @@ extension NetworkClient {
     }
   }
   
+  public func download(from url: URL) async throws -> Data {
+    try await withCheckedThrowingContinuation { [weak self] continuation in
+      guard let self = self else {
+        return
+      }
+      
+      let operation = DownloadOperation(session: session, urlString: url.absoluteString)
+      operation.completion = { result in
+        switch result {
+        case let .success(value):
+          continuation.resume(returning: value)
+          
+        case let .failure(networkError):
+          continuation.resume(throwing: networkError)
+        }
+      }
+      self.execute(operation)
+    }
+  }
+
   public func perform<R: Requestable, T>(_ request: R) -> Future<T, NetworkError> where T == R.ResponseType {
     Future<T, NetworkError> { [weak self] promise in
       guard let self = self else {
@@ -109,6 +110,24 @@ extension NetworkClient {
           
         case let .failure(networkError):
           promise(.failure(networkError))
+        }
+      }
+    }
+  }
+
+  public func perform<R, T>(_ request: R) async throws -> T where R : Requestable, T == R.ResponseType {
+    try await withCheckedThrowingContinuation { [weak self] continuation in
+      guard let self = self else {
+        return
+      }
+
+      self.perform(request) { result in
+        switch result {
+        case let .failure(error):
+          continuation.resume(throwing: error)
+          
+        case let .success(response):
+          continuation.resume(returning: response)
         }
       }
     }
