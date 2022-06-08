@@ -39,6 +39,7 @@ public final class DataTaskOperation<RequestType, DataType>: CompletionOperation
       if let error = error {
         Log.error(title: "An error occurred", message: "\(error.localizedDescription)")
         self.finish(with: .generic(error))
+        return
       }
 
       Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON?.string ?? "")
@@ -51,6 +52,7 @@ public final class DataTaskOperation<RequestType, DataType>: CompletionOperation
       if let clientError = self.clientError(from: response.httpStatus) {
         Log.error(title: "Client Error", message: clientError.message)
         self.finish(with: clientError)
+        return
       }
             
       let networkResponse = NetworkResponse(body: decodedData, request: urlRequest, httpResponse: response)
