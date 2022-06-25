@@ -1,4 +1,6 @@
-name: Publish Documentation on Github Pages
+# Build and deploy DocC to GitHub pages. Based off of @pointfree's work here:
+# https://github.com/pointfreeco/swift-MGENetwork/blob/main/.github/workflows/documentation.yml
+name: Documentation
 
 on:
   release:
@@ -7,38 +9,109 @@ on:
   push:
     branches:
       - feature/add-documentation
+  workflow_dispatch:
 
 jobs:
   build:
-
-    runs-on: macos-12
-
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Resolve package dependencies
-      run: swift package resolve
+      - name: Checkout Package
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-    - name: Build documentation
-      run: |
-        xcodebuild docbuild \
-          -scheme MGENetwork \
-          -destination "platform=iOS Simulator,OS=latest,name=iPhone 12" \
-          -derivedDataPath derived-temp
+      - name: Download Swift 5.5.1
+        run: wget -q https://download.swift.org/swift-5.5.1-release/ubuntu2004/swift-5.5.1-RELEASE/swift-5.5.1-RELEASE-ubuntu20.04.tar.gz
 
-    - name: Setting local environment
-      run: |
-        echo "DOC_ARCHIVE_PATH=$(echo $(find derived-temp -type d -name 'MGENetwork.doccarchive'))" >> $GITHUB_ENV
+      - name: Extract Swift 5.5.1
+        run: tar xzf swift-5.5.1-RELEASE-ubuntu20.04.tar.gz
 
-    - name: Generate static hosting files
-      run: |
-        $(xcrun --find docc) process-archive \
-          transform-for-static-hosting ${{ env.DOC_ARCHIVE_PATH }} \
-          --output-path docs \
-          --hosting-base-path /swift-mge-network/
+      - name: Add Swift toolchain to PATH
+        run: |
+          echo "$GITHUB_WORKSPACE/swift-5.5.1-RELEASE-ubuntu20.04/usr/bin" >> $GITHUB_PATH
 
-    - name: Publish documentation to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.7
-      with:
-        branch: gh-pages
-        folder: docs
-        single-commit: true
+      - name: Checkout swift-docc
+        uses: actions/checkout@v2
+        with:
+          repository: apple/swift-docc
+          ref: main
+          path: swift-docc
+
+      - name: Cache DocC
+        id: cache-docc
+        uses: actions/cache@v2
+        with:
+          key: swift-url-docc-build
+          path: swift-docc/.build
+
+      - name: Build swift-docc
+        if: ${{ !steps.cache-docc.outputs.cache-hit }}
+        run: |
+          cd swift-docc; swift build --product docc -c release; cd ..
+
+      - name: Checkout swift-docc-render
+        uses: actions/checkout@v2
+        with:
+          repository: apple/swift-docc-render
+          ref: main
+          path: swift-docc-render
+
+      - name: Build swift-docc-render
+        run: |
+          cd swift-docc-render; npm install && npm run build; cd ..
+
+      - name: Checkout gh-pages Branch
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: docs
+
+      - name: Build documentation
+        run: >
+          rm -rf docs/.git;
+          rm -rf docs/master;
+
+          for tag in $(echo "master"; git tag);
+          do
+            echo "⏳ Generating documentation for "$tag" release.";
+
+            if [ -d "docs/$tag" ]
+            then
+                echo "✅ Documentation for "$tag" already exists.";
+            else
+                git checkout "$tag";
+                mkdir -p Sources/MGENetwork/Documentation.docc;
+                export DOCC_HTML_DIR="$(pwd)/swift-docc-render/dist";
+
+                rm -rf .build/symbol-graphs;
+                mkdir -p .build/symbol-graphs;
+                swift build \
+                  --target MGENetwork \
+                  -Xswiftc \
+                  -emit-symbol-graph \
+                  -Xswiftc \
+                  -emit-symbol-graph-dir \
+                  -Xswiftc \
+                  .build/symbol-graphs \
+                  && swift-docc/.build/release/docc convert Sources/MGENetwork/Documentation.docc \
+                    --fallback-display-name MGENetwork \
+                    --fallback-bundle-identifier com.mge.MGENetwork \
+                    --fallback-bundle-version 0.0.0 \
+                    --additional-symbol-graph-dir \
+                    .build/symbol-graphs \
+                    --transform-for-static-hosting \
+                    --hosting-base-path /swift-mge-network/"$tag" \
+                    --output-path docs/"$tag" \
+                    && echo "✅ Documentation generated for "$tag" release." \
+                    || echo "⚠️ Documentation skipped for "$tag".";
+            fi;
+          done
+
+      - name: Fix permissions
+        run: 'sudo chown --recursive $USER docs'
+      - name: Publish documentation to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: docs
+          single-commit: true
