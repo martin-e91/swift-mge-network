@@ -8,14 +8,13 @@ on:
 
 jobs:
   build:
-    
+
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Clean
       run: swift package clean
-    - name: iOS Build
-      run: swift build -v -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios13.0-simulator"
+
     - name: iOS Tests
       run: xcodebuild test -scheme MGENetwork -destination "platform=iOS Simulator,OS=latest,name=iPhone 12"
