@@ -25,9 +25,13 @@ jobs:
           -destination "platform=iOS Simulator,OS=latest,name=iPhone 12" \
           -derivedDataPath derived-temp
 
+    - name: Setting local environment
+      run: |
+        echo "DOC_ARCHIVE_PATH=$(echo $(find derived-temp -type d -name 'MGENetwork.doccarchive'))" >> $GITHUB_ENV
+
     - name: Generate static hosting files
       run: |
         $(xcrun --find docc) process-archive \
-          transform-for-static-hosting $(echo find derived-temp -type d -name 'MGENetwork.doccarchive') \
+          transform-for-static-hosting env.DOC_ARCHIVE_PATH \
           --output-path docs \
           --hosting-base-path /swift-mge-network/
