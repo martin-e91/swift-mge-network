@@ -32,6 +32,6 @@ jobs:
     - name: Generate static hosting files
       run: |
         $(xcrun --find docc) process-archive \
-          transform-for-static-hosting env.DOC_ARCHIVE_PATH \
+          transform-for-static-hosting ${{ env.DOC_ARCHIVE_PATH }} \
           --output-path docs \
           --hosting-base-path /swift-mge-network/
