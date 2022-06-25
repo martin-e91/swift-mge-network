@@ -57,7 +57,7 @@ public final class DataTaskOperation<RequestType, DataType>: CompletionOperation
             
       let networkResponse = NetworkResponse(body: decodedData, request: urlRequest, httpResponse: response)
       
-      Log.debug(title: "DECODED RESPONSE", message: networkResponse.description)
+			Log.debug(title: "Decoded Response", message: networkResponse.description)
       
       self.finish(with: networkResponse.body)
     }

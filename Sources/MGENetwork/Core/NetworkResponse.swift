@@ -24,10 +24,8 @@ extension NetworkResponse: CustomStringConvertible {
     }
     
     return """
-\(method) -> \(url.absoluteString)
-
-Body:
-
+\(method) \(url.absoluteString)
+BODY:
 \(body)
 """
   }
