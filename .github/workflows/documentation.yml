@@ -6,7 +6,7 @@ on:
       - published
   push:
     branches:
-      - master
+      - feature/add-documentation
 
 jobs:
   build:
