@@ -55,22 +55,22 @@ jobs:
         run: |
           cd swift-docc-render; npm install && npm run build; cd ..
 
-      - name: Checkout gh-pages Branch
+      - name: Checkout master Branch
         uses: actions/checkout@v2
         with:
-          ref: gh-pages
-          path: docs-out
+          ref: master
+          path: docs
 
       - name: Build documentation
         run: >
-          rm -rf docs-out/.git;
-          rm -rf docs-out/main;
+          rm -rf docs/.git;
+          rm -rf docs/main;
 
           for tag in $(echo "main"; git tag);
           do
             echo "⏳ Generating documentation for "$tag" release.";
 
-            if [ -d "docs-out/$tag" ]
+            if [ -d "docs/$tag" ]
             then
                 echo "✅ Documentation for "$tag" already exists.";
             else
@@ -96,17 +96,17 @@ jobs:
                     .build/symbol-graphs \
                     --transform-for-static-hosting \
                     --hosting-base-path /swift-mge-network/"$tag" \
-                    --output-path docs-out/"$tag" \
+                    --output-path docs/"$tag" \
                     && echo "✅ Documentation generated for "$tag" release." \
                     || echo "⚠️ Documentation skipped for "$tag".";
             fi;
           done
 
       - name: Fix permissions
-        run: 'sudo chown --recursive $USER docs-out'
+        run: 'sudo chown --recursive $USER docs'
       - name: Publish documentation to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          branch: gh-pages
-          folder: docs-out
+          branch: master
+          folder: docs
           single-commit: true
