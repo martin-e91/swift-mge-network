@@ -7,7 +7,9 @@ import Foundation
 internal extension Encodable {
   /// The `Date` of the `Encodable`.
   var encoded: Data? {
-    try? JSONEncoder().encode(self)
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = .prettyPrinted
+    return try? encoder.encode(self)
   }
 
   /// Try to create a `Parameters.body` instance from the `Encodable` instance.
