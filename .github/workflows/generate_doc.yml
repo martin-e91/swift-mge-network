@@ -34,12 +34,14 @@ jobs:
           repository: apple/swift-docc
           ref: main
           path: swift-docc
+
       - name: Cache DocC
         id: cache-docc
         uses: actions/cache@v2
         with:
           key: swift-url-docc-build
           path: swift-docc/.build
+
       - name: Build swift-docc
         if: ${{ !steps.cache-docc.outputs.cache-hit }}
         run: |
@@ -90,7 +92,7 @@ jobs:
                   .build/symbol-graphs \
                   && swift-docc/.build/release/docc convert Sources/MGENetwork/Documentation.docc \
                     --fallback-display-name MGENetwork \
-                    --fallback-bundle-identifier co.pointfree.MGENetwork \
+                    --fallback-bundle-identifier com.mge.mgenetwork \
                     --fallback-bundle-version 0.0.0 \
                     --additional-symbol-graph-dir \
                     .build/symbol-graphs \
