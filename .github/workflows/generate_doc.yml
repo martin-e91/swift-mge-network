@@ -64,7 +64,6 @@ jobs:
       - name: Build documentation
         run: >
           rm -rf docs/.git;
-          rm -rf docs/main;
 
           for tag in $(echo "main"; git tag);
           do
