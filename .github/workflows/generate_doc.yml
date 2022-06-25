@@ -2,7 +2,7 @@ name: Generate Documentation
 
 on:
   push:
-    branches: [ main feature/add-documentation ]
+    branches: [ feature/add-documentation ]
 
 jobs:
   build:
