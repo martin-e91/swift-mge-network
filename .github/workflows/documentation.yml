@@ -35,3 +35,10 @@ jobs:
           transform-for-static-hosting ${{ env.DOC_ARCHIVE_PATH }} \
           --output-path docs \
           --hosting-base-path /swift-mge-network/
+
+    - name: Publish documentation to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.7
+      with:
+        branch: gh-pages
+        folder: docs
+        single-commit: true
