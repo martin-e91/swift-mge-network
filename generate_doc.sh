@@ -12,8 +12,9 @@ xcodebuild docbuild \
   -derivedDataPath $DERIVED_DATA_DIR \
   -destination 'platform=iOS Simulator,name=iPhone 13'
 
+# Generating Static Hosting files
 $(xcrun --find docc) process-archive \
-  transform-for-static-hosting $(echo $(find derived-temp -type d -name 'MGENetwork.doccarchive')) \
+  transform-for-static-hosting $(echo $(find $DERIVED_DATA_DIR -type d -name 'MGENetwork.doccarchive')) \
   --output-path $OUTPUT_DIR \
   --hosting-base-path swift-mge-network
 
