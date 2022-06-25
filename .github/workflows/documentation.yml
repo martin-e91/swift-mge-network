@@ -28,8 +28,8 @@ jobs:
     - name: Generate static hosting files
       run: |
         $(xcrun --find docc) process-archive \
-          transform-for-static-hosting DOC_ARCHIVE_PATH \
-          --output-path OUTPUT_PATH \
+          transform-for-static-hosting $(DOC_ARCHIVE_PATH) \
+          --output-path $(OUTPUT_PATH) \
           --hosting-base-path /swift-mge-network/
       env:
         DOC_ARCHIVE_PATH: $(echo find derived-temp -type d -name 'MGENetwork.doccarchive')
