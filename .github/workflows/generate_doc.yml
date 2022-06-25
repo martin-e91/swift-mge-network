@@ -22,8 +22,10 @@ jobs:
 
       - name: Download Swift 5.5.1
         run: wget -q https://download.swift.org/swift-5.5.1-release/ubuntu2004/swift-5.5.1-RELEASE/swift-5.5.1-RELEASE-ubuntu20.04.tar.gz
+
       - name: Extract Swift 5.5.1
         run: tar xzf swift-5.5.1-RELEASE-ubuntu20.04.tar.gz
+
       - name: Add Swift toolchain to PATH
         run: |
           echo "$GITHUB_WORKSPACE/swift-5.5.1-RELEASE-ubuntu20.04/usr/bin" >> $GITHUB_PATH
@@ -53,14 +55,15 @@ jobs:
           repository: apple/swift-docc-render
           ref: main
           path: swift-docc-render
+
       - name: Build swift-docc-render
         run: |
           cd swift-docc-render; npm install && npm run build; cd ..
 
-      - name: Checkout master Branch
+      - name: Checkout gh-pages Branch
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: gh-pages
           path: docs
 
       - name: Build documentation
@@ -106,6 +109,6 @@ jobs:
       - name: Publish documentation to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          branch: master
+          branch: gh-pages
           folder: docs
           single-commit: true
