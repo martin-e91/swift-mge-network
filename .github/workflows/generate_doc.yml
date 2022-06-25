@@ -68,6 +68,9 @@ jobs:
 
       - name: Build documentation
         run: >
+          rm -rf -f docs/.git;
+          rm -rf -f docs/master;
+
           for tag in $(echo "master"; git tag);
           do
             echo "⏳ Generating documentation for "$tag" release.";
