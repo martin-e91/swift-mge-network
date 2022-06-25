@@ -1,0 +1,33 @@
+name: Publish Documentation on Github Pages
+
+on:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: macos-12
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build documentation
+      run: |
+        xcodebuild docbuild \
+          -scheme MGENetwork \
+          -destination "platform=iOS Simulator,OS=latest,name=iPhone 12" \
+          -derivedDataPath derived-temp
+
+    - name: Generate static hosting files
+      run: |
+        $(xcrun --find docc) process-archive \
+          transform-for-static-hosting DOC_ARCHIVE_PATH \
+          --output-path OUTPUT_PATH \
+          --hosting-base-path /swift-mge-network/
+      env:
+        DOC_ARCHIVE_PATH: $(echo find derived-temp -type d -name 'MGENetwork.doccarchive')
+        OUTPUT_PATH: docs
