@@ -70,8 +70,11 @@ jobs:
         run: >
           rm -rf docs/.git;
           rm -rf docs/master;
-
-          for tag in $(echo "master"; git tag);
+for tag in $(echo "master"; git tag);
+do
+  echo "$tag"
+done
+          for tag in $(git tag);
           do
             echo "⏳ Generating documentation for "$tag" release.";
 
