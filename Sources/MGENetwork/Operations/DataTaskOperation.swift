@@ -31,7 +31,9 @@ public final class DataTaskOperation<RequestType, DataType>: CompletionOperation
     
     Log.debug(title: "➡️ SENDING REQUEST", message: "\(request)")
     
+		let requestStartTime = ProcessInfo.processInfo.systemUptime
     let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
+			let requestExecutionTime = ProcessInfo.processInfo.systemUptime - requestStartTime
       guard let self = self else {
         return
       }
@@ -42,7 +44,8 @@ public final class DataTaskOperation<RequestType, DataType>: CompletionOperation
         return
       }
 
-      Log.debug(title: "⬅️ RECEIVED RESPONSE", message: data?.prettyPrintedJSON?.string ?? "")
+			let executionTimeMessage = "Execution time: \(requestStartTime)\n"
+      Log.debug(title: "⬅️ RECEIVED RESPONSE", message: executionTimeMessage + (data?.prettyPrintedJSON?.string ?? ""))
       
       guard let body = data, let decodedData = self.decode(body), let response = response as? HTTPURLResponse else {
         self.finish(with: .invalidData)
@@ -56,7 +59,7 @@ public final class DataTaskOperation<RequestType, DataType>: CompletionOperation
       }
             
       let networkResponse = NetworkResponse(body: decodedData, request: urlRequest, httpResponse: response)
-      
+
 			Log.debug(title: "Decoded Response", message: networkResponse.description)
       
       self.finish(with: networkResponse.body)
