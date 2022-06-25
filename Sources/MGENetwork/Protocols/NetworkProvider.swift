@@ -3,7 +3,9 @@
 //
 
 import Foundation
+#if canImport(Combine)
 import Combine
+#endif
 
 /// An entity providing ways of making requests against the network.
 public protocol NetworkProvider: OperationExecutor {

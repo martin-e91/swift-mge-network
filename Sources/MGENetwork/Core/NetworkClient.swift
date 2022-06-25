@@ -3,8 +3,10 @@
 //
 
 import Foundation
-import Combine
 import MGELogger
+#if canImport(Combine)
+import Combine
+#endif
 
 /// A client for making network calls.
 public final class NetworkClient: NetworkProvider, OperationExecutor {
