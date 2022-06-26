@@ -39,7 +39,7 @@ jobs:
           do
             echo "⏳ Generating documentation for "$tag" release.";
 
-            if [ -d "${{ env.OUTPUT_DIR }}/$tag" ]
+            if [ -d "${{ env.OUTPUT_DIR/$tag }}" ]
             then
                 echo "✅ Documentation for "$tag" already exists.";
             else
