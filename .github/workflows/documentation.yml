@@ -33,30 +33,30 @@ jobs:
 
       - name: Build documentation
         run: >
-          rm -rf ${{ env.DERIVED_DATA_DIR}};
+          rm -rf ${{env.DERIVED_DATA_DIR}};
 
           for tag in $(git tag);
           do
             echo "⏳ Generating documentation for "$tag" release.";
 
-            if [ -d "${{ env.OUTPUT_DIR/$tag }}" ]
+            if [ -d "${{env.OUTPUT_DIR}}/$tag" ]
             then
                 echo "✅ Documentation for "$tag" already exists.";
             else
                 git checkout "$tag";
 
                 xcodebuild docbuild \
-                  -scheme ${{ env.TARGET_NAME }} \
-                  -derivedDataPath ${{ env.DERIVED_DATA_DIR}} \
+                  -scheme ${{env.TARGET_NAME}} \
+                  -derivedDataPath ${{env.DERIVED_DATA_DIR}} \
                   -destination 'platform=iOS Simulator,name=iPhone 13' \
-                  OTHER_DOCC_FLAGS="--transform-for-static-hosting --output-path ${{ env.OUTPUT_DIR/$tag }} --hosting-base-path swift-mge-network/"$tag"" \
+                  OTHER_DOCC_FLAGS="--transform-for-static-hosting --output-path ${{env.OUTPUT_DIR}}/$tag --hosting-base-path swift-mge-network/"$tag"" \
                   && echo "✅ Documentation generated for "$tag" release." \
                   || echo "⚠️ Documentation skipped for "$tag".";
             fi;
           done
 
       - name: Temp step
-        run: echo $(ls ${{ env.OUTPUT_DIR }});
+        run: echo $(ls ${{env.OUTPUT_DIR}});
 
       - name: Publish documentation to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
