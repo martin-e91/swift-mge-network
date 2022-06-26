@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
   name: "MGENetwork",
   platforms: [
-    .iOS(.v9)
+		.iOS(.v13), .macOS(.v10_15)
   ],
   products: [
     .library(name: "MGENetwork", targets: ["MGENetwork"]),
