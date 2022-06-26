@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - feature/add-documentation
-  workflow_dispatch:
 
 jobs:
   build:
@@ -26,8 +25,8 @@ jobs:
 
       - name: Build documentation
         run: >
-          rm -rf docs-out/.git;
-          rm -rf docs-out/master;
+          rm -rf -f docs-out/.git;
+          rm -rf -f docs-out/master;
 
           TARGET_NAME="MGENetwork"
           DERIVED_DATA_DIR=".derived_temp"
@@ -37,7 +36,7 @@ jobs:
           do
             echo "⏳ Generating documentation for "$tag" release.";
 
-            if [ -d "OUTPUT_DIR/$tag" ]
+            if [ -d "$OUTPUT_DIR/$tag" ]
             then
                 echo "✅ Documentation for "$tag" already exists.";
             else
