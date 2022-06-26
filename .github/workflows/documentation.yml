@@ -10,6 +10,11 @@ on:
     branches:
       - feature/add-documentation
 
+env:
+  TARGET_NAME: MGENetwork
+  DERIVED_DATA_DIR: .derived_temp
+  OUTPUT_DIR: docs-out
+
 jobs:
   build:
     runs-on: macos-12
@@ -23,14 +28,13 @@ jobs:
           ref: gh-pages
           path: docs-out
 
+      - name: Temp step
+        run: echo $TARGET_NAME; echo $DERIVED_DATA_DIR; echo OUTPUT_DIR;
+
       - name: Build documentation
         run: >
           rm -rf -f docs-out/.git;
           rm -rf -f docs-out/master;
-
-          TARGET_NAME="MGENetwork"
-          DERIVED_DATA_DIR=".derived_temp"
-          OUTPUT_DIR="docs-out"
 
           for tag in $(git tag);
           do
