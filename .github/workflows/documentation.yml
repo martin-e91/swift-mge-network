@@ -58,13 +58,20 @@ jobs:
                 -scheme ${{ env.TARGET_NAME }} \
                 -destination 'generic/platform=iOS' \
                 -derivedDataPath .derivedData \
-                OTHER_DOCC_FLAGS="--transform-for-static-hosting --output-path ${{ env.OUTPUT_DIR }}/$tag --hosting-base-path ${{ github.event.repository.name }}/"$tag"
+                OTHER_DOCC_FLAGS="--transform-for-static-hosting --output-path ${{ env.OUTPUT_DIR }}/$tag --hosting-base-path ${{ github.event.repository.name }}/$tag"
 
               mkdir "${{ env.OUTPUT_DIR }}/$tag"
 
-              find .derivedData \
+              find ".derivedData" \
                 -name "${{ env.TARGET_NAME }}.doccarchive" \
                 -exec cp -R {} ${{ env.OUTPUT_DIR }}/$tag \;
+
+              if [ -d "${{ env.OUTPUT_DIR }}/$tag" ]
+              then
+                echo "✅ Documentation generated for $tag release.";
+              else
+                echo "⚠️ Documentation skipped for $tag.";
+              fi;
 
             fi;
 
