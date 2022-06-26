@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
 
     env:
       TARGET_NAME: MGENetwork
@@ -24,51 +24,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Swift 5.6.2
-        run: wget -q https://download.swift.org/swift-5.6.2-release/ubuntu2004/swift-5.6.2-RELEASE/swift-5.6.2-RELEASE-ubuntu20.04.tar.gz
-
-      - name: Extract Swift 5.6.2
-        run: tar xzf swift-5.6.2-RELEASE-ubuntu20.04.tar.gz
-
-      - name: Add Swift toolchain to PATH
-        run: |
-          echo "$GITHUB_WORKSPACE/swift-5.6.2-RELEASE-ubuntu20.04/usr/bin" >> $GITHUB_PATH
-
-      - name: Checkout swift-docc
-        uses: actions/checkout@v2
-        with:
-          repository: apple/swift-docc
-          ref: main
-          path: swift-docc
-
-      - name: Cache DocC
-        id: cache-docc
-        uses: actions/cache@v2
-        with:
-          key: swift-url-docc-build
-          path: swift-docc/.build
-
-      - name: Build swift-docc
-        if: ${{ !steps.cache-docc.outputs.cache-hit }}
-        run: |
-          cd swift-docc; swift build --product docc -c release; cd ..
-
-      - name: Checkout swift-docc-render
-        uses: actions/checkout@v2
-        with:
-          repository: apple/swift-docc-render
-          ref: main
-          path: swift-docc-render
-
-      - name: Build swift-docc-render
-        run: |
-          cd swift-docc-render; npm install && npm run build; cd ..
-
       - name: Checkout gh-pages Branch
         uses: actions/checkout@v2
         with:
           ref: gh-pages
           path: ${{ env.OUTPUT_DIR }}
+
+      - name: Force Xcode 13.4.1
+        run: sudo xcode-select -switch /Applications/Xcode_13.4.1.app && /usr/bin/xcodebuild -version
 
       - name: Resolve Swift Package dependencies
         run: swift package resolve
@@ -88,7 +51,6 @@ jobs:
             else
               git checkout "$tag";
               mkdir -p Sources/Parsing/Documentation.docc;
-              export DOCC_HTML_DIR="$(pwd)/swift-docc-render/dist";
               rm -rf .build/symbol-graphs;
               mkdir -p .build/symbol-graphs;
 
