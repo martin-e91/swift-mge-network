@@ -50,18 +50,14 @@ jobs:
               echo "✅ Documentation for "$tag" already exists.";
             else
               git checkout "$tag";
-              mkdir -p Sources/Parsing/Documentation.docc;
-              rm -rf .build/symbol-graphs;
-              mkdir -p .build/symbol-graphs;
 
               swift build -v -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios13.0-simulator" --target ${{ env.TARGET_NAME }} \
-                && swift-docc/.build/release/docc convert Sources/Parsing/Documentation.docc \
-                  --fallback-display-name ${{ env.TARGET_NAME }} \
-                  --fallback-bundle-identifier com.mge.MGENetwork \
-                  --fallback-bundle-version 0.0.0 \
+                && swift package --allow-writing-to-directory ${{ env.OUTPUT_DIR }}/$tag \
+                  generate-documentation --target ${{ env.TARGET_NAME }} \
+                  --disable-indexing \
                   --transform-for-static-hosting \
-                  --hosting-base-path /swift-mge-network/"$tag" \
-                  --output-path ${{ env.OUTPUT_DIR }}/"$tag" \
+                  --hosting-base-path ${{ github.event.repository.name }}/$tag \
+                  --output-path ${{ env.OUTPUT_DIR }}/$tag
                   && echo "✅ Documentation generated for "$tag" release." \
                   || echo "⚠️ Documentation skipped for "$tag".";
             fi;
