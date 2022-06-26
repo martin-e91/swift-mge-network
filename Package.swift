@@ -12,7 +12,8 @@ let package = Package(
     .library(name: "MGENetwork", targets: ["MGENetwork"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/martin-e91/MGELogger.git", .exact("0.8.0"))
+    .package(url: "https://github.com/martin-e91/MGELogger.git", .exact("0.8.0")),
+		.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
   ],
   targets: [
     .target(name: "MGENetwork", dependencies: ["MGELogger"]),
