@@ -62,17 +62,13 @@ jobs:
 
               find .derivedData \
                 -name "${{ env.TARGET_NAME }}.doccarchive" \
-                -exec cp -R {} ${{ env.OUTPUT_DIR }}/$tag
-
-                find .derivedData \
-                  -name "$TARGET_NAME.doccarchive" \
-                  -exec cp -R {} $OUTPUT_DIR/$tag \;
+                -exec cp -R {} ${{ env.OUTPUT_DIR }}/$tag \;
 
               if [ -d "${{ env.OUTPUT_DIR }}/$tag" ]
               then
-                echo "✅ Documentation generated for "$tag" release."
+                echo "✅ Documentation generated for $tag release.";
               else
-                echo "⚠️ Documentation skipped for "$tag".";
+                echo "⚠️ Documentation skipped for $tag.";
               fi;
 
             fi;
