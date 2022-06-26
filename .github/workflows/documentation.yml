@@ -1,4 +1,4 @@
-${{ env.TARGET_NAME }}# Build and deploy DocC to GitHub pages. Based off of @pointfree's work here:
+# Build and deploy DocC to GitHub pages. Based off of @pointfree's work here:
 # https://github.com/pointfreeco/swift-MGENetwork/blob/main/.github/workflows/documentation.yml
 name: Documentation
 
@@ -61,6 +61,6 @@ jobs:
       - name: Publish documentation to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          branch: DERIVED_DATA_DIR
+          branch: gh-pages
           folder: docs-out
           single-commit: true
