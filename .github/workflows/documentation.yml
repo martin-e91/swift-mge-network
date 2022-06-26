@@ -29,30 +29,27 @@ jobs:
           path: docs-out
 
       - name: Temp step
-        run: echo $TARGET_NAME; echo $DERIVED_DATA_DIR; echo OUTPUT_DIR;
+        run: echo $TARGET_NAME; echo $DERIVED_DATA_DIR; echo $OUTPUT_DIR;
 
       - name: Build documentation
         run: >
-          rm -rf -f docs-out/.git;
-          rm -rf -f docs-out/master;
-
           for tag in $(git tag);
           do
             echo "⏳ Generating documentation for "$tag" release.";
 
-            if [ -d "$OUTPUT_DIR/$tag" ]
+            if [ -d "${{ env.OUTPUT_DIR }}/$tag" ]
             then
                 echo "✅ Documentation for "$tag" already exists.";
             else
                 git checkout "$tag";
 
                 xcodebuild docbuild \
-                  -scheme $TARGET_NAME \
-                  -derivedDataPath $DERIVED_DATA_DIR \
+                  -scheme ${{ env.TARGET_NAME }} \
+                  -derivedDataPath ${{ env.DERIVED_DATA_DIR }} \
                   -destination 'platform=iOS Simulator,name=iPhone 13' \
                 && $(xcrun --find docc) process-archive \
-                  transform-for-static-hosting $(echo $(find $DERIVED_DATA_DIR -type d -name '$(TARGET_NAME).doccarchive')) \
-                  --output-path $OUTPUT_DIR \
+                  transform-for-static-hosting $(echo $(find ${{ env.DERIVED_DATA_DIR }} -type d -name '${{ env.TARGET_NAME }}.doccarchive')) \
+                  --output-path ${{ env.OUTPUT_DIR }} \
                   --hosting-base-path swift-mge-network/"$tag" \
                 && echo "✅ Documentation generated for "$tag" release." \
                 || echo "⚠️ Documentation skipped for "$tag".";
