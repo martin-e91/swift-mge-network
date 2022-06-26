@@ -30,6 +30,9 @@ jobs:
           ref: gh-pages
           path: ${{ env.OUTPUT_DIR }}
 
+      - name: Print Swift Version
+        run: xcrun swift -version
+
       - name: Force Xcode 13.4.1
         run: sudo xcode-select -switch /Applications/Xcode_13.4.1.app && /usr/bin/xcodebuild -version
 
