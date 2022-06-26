@@ -54,14 +54,12 @@ jobs:
             else
               git checkout "$tag";
 
-              swift build -v -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios13.0-simulator" --target ${{ env.TARGET_NAME }} \
-
-              swift package --allow-writing-to-directory ${{ env.OUTPUT_DIR }}/$tag \
-                  generate-documentation --target ${{ env.TARGET_NAME }} \
-                  --disable-indexing \
-                  --transform-for-static-hosting \
-                  --hosting-base-path ${{ github.event.repository.name }}/$tag \
-                  --output-path ${{ env.OUTPUT_DIR }}/$tag
+              swift package generate-documentation \
+                --target ${{ env.TARGET_NAME }} \
+                --disable-indexing \
+                --transform-for-static-hosting \
+                --hosting-base-path ${{ github.event.repository.name }}/$tag \
+                --output-path ${{ env.OUTPUT_DIR }}/$tag
 
               if [ -d "${{ env.OUTPUT_DIR }}/$tag" ]
               then
