@@ -89,12 +89,7 @@ jobs:
               git checkout "$tag";
               export DOCC_HTML_DIR="$(pwd)/swift-docc-render/dist";
 
-              swift package --allow-writing-to-directory ${{ env.OUTPUT_DIR }} \
-                generate-documentation --target ${{ env.TARGET_NAME }} \
-                --disable-indexing \
-                --transform-for-static-hosting \
-                --hosting-base-path ${{ github.event.repository.name }} \
-                --output-path ${{ env.OUTPUT_DIR }}
+              swift package --allow-writing-to-directory ${{ env.OUTPUT_DIR }} generate-documentation --target ${{ env.TARGET_NAME }} --disable-indexing --transform-for-static-hosting --hosting-base-path ${{ github.event.repository.name }}/$tag --output-path ${{ env.OUTPUT_DIR }}
 
             fi;
           done

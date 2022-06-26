@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -12,7 +12,7 @@ let package = Package(
     .library(name: "MGENetwork", targets: ["MGENetwork"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/martin-e91/MGELogger.git", .exact("0.8.0")),
+		.package(url: "https://github.com/martin-e91/MGELogger.git", .exactItem("0.8.0")),
 		.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
   ],
   targets: [
