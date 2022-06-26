@@ -1,4 +1,4 @@
-# Build and deploy DocC to GitHub pages. Based off of @pointfree's work here:
+${{ env.TARGET_NAME }}# Build and deploy DocC to GitHub pages. Based off of @pointfree's work here:
 # https://github.com/pointfreeco/swift-MGENetwork/blob/main/.github/workflows/documentation.yml
 name: Documentation
 
@@ -33,34 +33,34 @@ jobs:
 
       - name: Build documentation
         run: >
-          rm -rf $DERIVED_DATA_DIR;
+          rm -rf ${{ env.DERIVED_DATA_DIR}};
 
           for tag in $(git tag);
           do
             echo "⏳ Generating documentation for "$tag" release.";
 
-            if [ -d "$OUTPUT_DIR/$tag" ]
+            if [ -d "${{ env.OUTPUT_DIR }}/$tag" ]
             then
                 echo "✅ Documentation for "$tag" already exists.";
             else
                 git checkout "$tag";
 
                 xcodebuild docbuild \
-                  -scheme $TARGET_NAME \
-                  -derivedDataPath $DERIVED_DATA_DIR \
+                  -scheme ${{ env.TARGET_NAME }} \
+                  -derivedDataPath ${{ env.DERIVED_DATA_DIR}} \
                   -destination 'platform=iOS Simulator,name=iPhone 13' \
-                  OTHER_DOCC_FLAGS="--transform-for-static-hosting --output-path $OUTPUT_DIR/$tag --hosting-base-path swift-mge-network/"$tag"" \
+                  OTHER_DOCC_FLAGS="--transform-for-static-hosting --output-path ${{ env.OUTPUT_DIR/$tag }} --hosting-base-path swift-mge-network/"$tag"" \
                   && echo "✅ Documentation generated for "$tag" release." \
                   || echo "⚠️ Documentation skipped for "$tag".";
             fi;
           done
 
       - name: Temp step
-        run: echo $(ls $OUTPUT_DIR);
+        run: echo $(ls ${{ env.OUTPUT_DIR }});
 
       - name: Publish documentation to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          branch: gh-pages
+          branch: DERIVED_DATA_DIR
           folder: docs-out
           single-commit: true
