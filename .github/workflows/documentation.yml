@@ -28,9 +28,6 @@ jobs:
           ref: gh-pages
           path: docs-out
 
-      - name: Temp step
-        run: echo $TARGET_NAME; echo $DERIVED_DATA_DIR; echo $OUTPUT_DIR;
-
       - name: Build documentation
         run: >
           for tag in $(git tag);
@@ -55,6 +52,9 @@ jobs:
                 || echo "⚠️ Documentation skipped for "$tag".";
             fi;
           done
+
+      - name: Temp step
+        run: echo $(ls ${{ env.OUTPUT_DIR }});
 
       - name: Publish documentation to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
