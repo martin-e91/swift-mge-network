@@ -44,12 +44,9 @@ jobs:
                   -scheme ${{ env.TARGET_NAME }} \
                   -derivedDataPath ${{ env.DERIVED_DATA_DIR }} \
                   -destination 'platform=iOS Simulator,name=iPhone 13' \
-                && $(xcrun --find docc) process-archive \
-                  transform-for-static-hosting $(echo $(find ${{ env.DERIVED_DATA_DIR }} -type d -name '${{ env.TARGET_NAME }}.doccarchive')) \
-                  --output-path ${{ env.OUTPUT_DIR }} \
-                  --hosting-base-path swift-mge-network/"$tag" \
-                && echo "✅ Documentation generated for "$tag" release." \
-                || echo "⚠️ Documentation skipped for "$tag".";
+                  OTHER_DOCC_FLAGS="--transform-for-static-hosting --output-path docs-out --hosting-base-path swift-mge-network/"$tag"" \
+                  && echo "✅ Documentation generated for "$tag" release." \
+                  || echo "⚠️ Documentation skipped for "$tag".";
             fi;
           done
 
